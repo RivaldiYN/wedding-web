@@ -7,7 +7,7 @@ interface FloatingNavProps {
   isVisible: boolean;
 }
 
-export default function FloatingNav({ isVisible }: FloatingNavProps) {
+export default function FloatingNav({ isVisible }: Readonly<FloatingNavProps>) {
   const [activeSection, setActiveSection] = useState("hero");
 
   const navItems = [

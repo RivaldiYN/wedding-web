@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -66,7 +66,6 @@ export default function WeddingSketchbook() {
   const [currentPage, setCurrentPage] = useState(0);
   const [lensPos, setLensPos] = useState({ x: 420, y: 280 });
   const [isHovered, setIsHovered] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const bookRef = useRef<HTMLDivElement>(null);
 
   const page = SKETCH_PAGES[currentPage];
@@ -130,10 +129,7 @@ export default function WeddingSketchbook() {
           ref={bookRef}
           onPointerMove={handlePointerMove}
           onPointerEnter={() => setIsHovered(true)}
-          onPointerLeave={() => {
-            setIsHovered(false);
-            setIsDragging(false);
-          }}
+          onPointerLeave={() => setIsHovered(false)}
           className="relative w-full aspect-[16/10] min-h-[420px] max-h-[640px] rounded-3xl p-3 sm:p-6 bg-[#E8DFD3] shadow-2xl border-4 border-[#D4C5B0] overflow-hidden flex cursor-crosshair"
           style={{
             backgroundImage: "radial-gradient(circle at 50% 50%, #FAF6F0 0%, #E9DECFA0 100%)",
@@ -240,7 +236,7 @@ export default function WeddingSketchbook() {
 
           {/* Draggable & Floating Magnifying Glass Lens (Kaca Pembesar Emas) */}
           <div
-            className="absolute z-30 pointer-events-none transition-transform duration-75 ease-out"
+            className={`absolute z-30 pointer-events-none transition-all duration-150 ease-out ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
             style={{
               left: `${lensPos.x}px`,
               top: `${lensPos.y}px`,

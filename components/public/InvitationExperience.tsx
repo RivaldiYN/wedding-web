@@ -21,7 +21,10 @@ interface InvitationExperienceProps {
   slug: string;
 }
 
-export default function InvitationExperience({ guestName, slug }: InvitationExperienceProps) {
+export default function InvitationExperience({
+  guestName,
+  slug,
+}: Readonly<InvitationExperienceProps>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
