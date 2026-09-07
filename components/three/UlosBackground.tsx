@@ -62,7 +62,7 @@ function FloatingPetals({ isMobile }: { isMobile: boolean }) {
   }, []);
 
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+    const t = performance.now() * 0.001;
     const mouseX = state.pointer.x * 0.8;
 
     // Update Blush Rose Petals
@@ -148,9 +148,9 @@ function FloatingPetals({ isMobile }: { isMobile: boolean }) {
 function FloatingWeddingRings({ isMobile }: { isMobile: boolean }) {
   const groupRef = useRef<THREE.Group>(null!);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!groupRef.current) return;
-    const t = state.clock.getElapsedTime();
+    const t = performance.now() * 0.001;
     groupRef.current.rotation.y = t * 0.15;
     groupRef.current.rotation.x = Math.sin(t * 0.2) * 0.15;
     groupRef.current.position.y = Math.sin(t * 0.35) * 0.15 + (isMobile ? 2.2 : 2.8);
@@ -205,11 +205,11 @@ function ChampagneDust({ isMobile }: { isMobile: boolean }) {
     return arr;
   }, [count]);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!pointsRef.current) return;
     const geo = pointsRef.current.geometry;
     const pos = geo.attributes.position.array as Float32Array;
-    const t = state.clock.getElapsedTime();
+    const t = performance.now() * 0.001;
 
     for (let i = 0; i < count; i++) {
       const iy = i * 3 + 1;

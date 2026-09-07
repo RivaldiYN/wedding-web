@@ -24,18 +24,18 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "The Wedding of Budi & Sari",
+  title: "The Wedding of Jacob & Ghina | #withCob",
   description:
-    "We joyfully invite you to celebrate our wedding. Saturday, November 15th, 2025.",
+    "We joyfully invite you to celebrate our wedding. Saturday, May 02nd, 2026.",
   openGraph: {
-    title: "The Wedding of Budi & Sari",
-    description: "You are cordially invited to celebrate our special day.",
+    title: "The Wedding of Jacob & Ghina | #withCob",
+    description: "You are cordially invited to celebrate the holy matrimony and wedding celebration of Jacob & Ghina.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Wedding of Budi & Sari",
+    title: "The Wedding of Jacob & Ghina | #withCob",
   },
 };
 
@@ -45,7 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${alexBrush.variable} ${jakarta.variable} scroll-smooth`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${cormorant.variable} ${alexBrush.variable} ${jakarta.variable} scroll-smooth`}
+    >
       <body className="bg-[#FBF8F3] text-[#2C251E] font-sans antialiased selection:bg-[#C5A869] selection:text-[#FFFFFF]">
         {children}
       </body>
