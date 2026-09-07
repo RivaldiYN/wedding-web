@@ -15,6 +15,7 @@ export default function FloatingNav({ isVisible }: FloatingNavProps) {
     { id: "couple-profile", label: "Couple", icon: "👰" },
     { id: "event-details", label: "Events", icon: "📅" },
     { id: "love-story", label: "Story", icon: "❤️" },
+    { id: "sketchbook", label: "Sketchbook", icon: "📖" },
     { id: "gallery", label: "Gallery", icon: "📸" },
     { id: "rsvp", label: "RSVP", icon: "✉️" },
     { id: "wishes", label: "Wishes", icon: "💬" },

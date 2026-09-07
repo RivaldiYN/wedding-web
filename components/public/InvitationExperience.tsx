@@ -5,6 +5,7 @@ import CoverGate from "@/components/sections/CoverGate";
 import Hero from "@/components/sections/Hero";
 import CoupleProfile from "@/components/sections/CoupleProfile";
 import LoveStory from "@/components/sections/LoveStory";
+import SketchbookJourney from "@/components/sections/SketchbookJourney";
 import EventDetails from "@/components/sections/EventDetails";
 import BentoGallery from "@/components/sections/BentoGallery";
 import RSVPForm from "@/components/sections/RSVPForm";
@@ -46,6 +47,7 @@ export default function InvitationExperience({ guestName, slug }: InvitationExpe
         <CoupleProfile />
         <EventDetails />
         <LoveStory />
+        <SketchbookJourney />
         <BentoGallery />
         <RSVPForm guestName={guestName} slug={slug} />
         <Wishes />
