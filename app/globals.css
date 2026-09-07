@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #fbf8f3;
+  --color-cream-card: #ffffff;
+  --color-cream-soft: #f4eee3;
+  --color-linen: #eae2d3;
+  
+  --color-espresso: #2c251e;
+  --color-taupe: #61574b;
+  --color-taupe-light: #8e8272;
+  
+  --color-gold: #9e7b35;
+  --color-gold-light: #c5a869;
+  --color-gold-pale: #eeddb7;
+  
+  --color-blush: #f7ede6;
+  --color-rose: #a34848;
+
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-script: var(--font-script), cursive;
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.font-script {
+  font-family: var(--font-script), cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* --- Wedding Editorial Light Palette Utilities --- */
+
+.bg-wedding-paper {
+  background-color: #fbf8f3;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(244, 238, 227, 0.8) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(235, 216, 205, 0.4) 0px, transparent 50%);
+}
+
+.bg-champagne-gold {
+  background: linear-gradient(135deg, #c5a869 0%, #9e7b35 100%);
+}
+
+.bg-champagne-gold-soft {
+  background: linear-gradient(135deg, rgba(197, 168, 105, 0.15) 0%, rgba(197, 168, 105, 0.05) 100%);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #a6843e 0%, #826325 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphic Warm Wedding Surface */
+.glass-wedding-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(197, 168, 105, 0.28);
+  box-shadow: 0 15px 35px -8px rgba(120, 95, 45, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+.glass-wedding-card:hover {
+  border-color: rgba(197, 168, 105, 0.5);
+  box-shadow: 0 20px 45px -8px rgba(120, 95, 45, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+/* Buttons */
+.btn-wedding-gold {
+  background: linear-gradient(135deg, #c5a869 0%, #9e7b35 100%);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 20px -2px rgba(158, 123, 53, 0.35);
+}
+
+.btn-wedding-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(158, 123, 53, 0.5);
+  filter: brightness(1.05);
+}
+
+.btn-wedding-gold:active {
+  transform: translateY(0);
+}
+
+.btn-wedding-outline {
+  border: 1px solid rgba(158, 123, 53, 0.4);
+  color: #7a5e24;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.btn-wedding-outline:hover {
+  border-color: #9e7b35;
+  background: rgba(197, 168, 105, 0.12);
+  color: #2c251e;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #fbf8f3;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(197, 168, 105, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(158, 123, 53, 0.7);
+}
+
+/* Animations */
+@keyframes floatPetal {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(5deg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-float {
+  animation: floatPetal 5s ease-in-out infinite;
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 16s linear infinite;
 }

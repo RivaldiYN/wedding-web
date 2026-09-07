@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Invitation {
+  id        String   @id @default(cuid())
+  guestName String
+  slug      String   @unique
+  visits    Int      @default(0)
+  createdAt DateTime @default(now())
+  rsvp      Rsvp?
+}
+
+model Rsvp {
+  id           String      @id @default(cuid())
+  guestName    String
+  slug         String
+  attending    Boolean
+  session      String      @default("resepsi")
+  guestCount   Int         @default(1)
+  message      String?
+  createdAt    DateTime    @default(now())
+  invitation   Invitation? @relation(fields: [invitationId], references: [id])
+  invitationId String?     @unique
+}
+
+model Wish {
+  id        String   @id @default(cuid())
+  name      String
+  message   String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
