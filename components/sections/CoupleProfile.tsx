@@ -12,13 +12,14 @@ export default function CoupleProfile() {
     >
       {/* Decorative Glow */}
       <div className="absolute -top-24 right-10 w-80 h-80 bg-[#7A5E24]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute -bottom-24 left-10 w-80 h-80 bg-[#E8C5B8]/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute -bottom-24 left-10 w-80 h-80 bg-[#8B1A1A]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
-      {/* Background Floral Watermark */}
+      {/* Background Floral & Gorga Watermark */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 pointer-events-none opacity-20" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#7A5E24]">
           <path d="M10 10C60 40 90 90 50 140C20 100 20 50 10 10Z" stroke="currentColor" strokeWidth="1.2" />
           <path d="M40 30C100 50 130 110 90 160C50 120 40 70 40 30Z" stroke="currentColor" strokeWidth="1.2" />
+          <polygon points="50,20 65,35 50,50 35,35" stroke="currentColor" strokeWidth="1" fill="#8B1A1A" fillOpacity="0.25" />
         </svg>
       </div>
 
@@ -28,7 +29,7 @@ export default function CoupleProfile() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-[#7A5E24]/15 border border-[#7A5E24]/40 text-[#7A5E24] mb-3 text-lg"
+          className="inline-flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-[#8B1A1A]/10 border border-[#8B1A1A]/30 text-[#8B1E2A] mb-3 text-lg"
           aria-hidden="true"
         >
           💍
@@ -41,7 +42,7 @@ export default function CoupleProfile() {
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.5, delay: 0.05 }}
         >
-          The Happy Couple
+          The Happy Couple &bull; Anak &amp; Boru Ni Raja
         </motion.p>
         <motion.h2
           className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light tracking-wide"
@@ -66,9 +67,9 @@ export default function CoupleProfile() {
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          &ldquo;So they are no longer two, but one flesh. Therefore what God has joined together, let no one separate.&rdquo;
-          <cite className="block text-[#7A5E24] text-xs not-italic font-semibold mt-1.5 tracking-wider">
-            : Matthew 19:6
+          &ldquo;Tumbur ni Pahu tu Ramba ni Poriau, Manumpak ma Debata tubu ma anak dohot boru na marroha.&rdquo;
+          <cite className="block text-[#7A5E24] text-xs not-italic font-bold mt-1.5 tracking-wider">
+            : Umpasa Batak Toba
           </cite>
         </motion.blockquote>
       </div>
@@ -102,7 +103,7 @@ export default function CoupleProfile() {
               {COUPLE.groomName}
             </h3>
             <p className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.25em] font-bold">
-              The Groom
+              The Groom &bull; Anak Ni Raja
             </p>
           </div>
 
@@ -143,7 +144,7 @@ export default function CoupleProfile() {
               {COUPLE.brideName}
             </h3>
             <p className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.25em] font-bold">
-              The Bride
+              The Bride &bull; Boru Ni Raja
             </p>
           </div>
 

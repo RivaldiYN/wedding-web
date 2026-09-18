@@ -15,22 +15,36 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
       aria-label="Wedding Introduction"
       className="relative min-h-[95vh] flex flex-col items-center justify-center overflow-hidden px-4 py-24 text-center bg-gradient-to-b from-[#FAF7F2]/90 via-[#FAF5EE]/80 to-[#F5ECE1]/90"
     >
-      {/* Decorative Botanical Leaf Accents & Golden Sunburst Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#9E7B35]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      {/* Decorative Botanical & Batak Gorga Accents */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-[#7A5E24]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="absolute top-8 right-8 w-44 h-44 pointer-events-none opacity-25" aria-hidden="true">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#7A5E24]">
           <path d="M10 10C50 30 70 80 40 120C20 90 20 40 10 10Z" stroke="currentColor" strokeWidth="1.2" />
           <path d="M40 30C90 40 120 90 90 140C60 110 50 60 40 30Z" stroke="currentColor" strokeWidth="1.2" />
+          <polygon points="50,20 65,35 50,50 35,35" stroke="currentColor" strokeWidth="1" fill="#8B1A1A" fillOpacity="0.2" />
         </svg>
       </div>
 
       <div className="relative z-10 flex flex-col items-center max-w-3xl mx-auto gap-6">
-        {/* Pre-title */}
+        {/* Batak Greeting Badge */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8B1A1A]/10 border border-[#8B1A1A]/30 text-[#8B1E2A] text-xs font-sans uppercase tracking-[0.25em] font-bold"
+        >
+          <span aria-hidden="true">✦</span>
+          <span>Horas Ma Di Hita Saluhutna</span>
+          <span aria-hidden="true">✦</span>
+        </motion.div>
+
+        {/* Pre-title */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
           className="flex items-center gap-3"
         >
           <div className="h-px w-10 bg-[#7A5E24]/40" />
@@ -66,8 +80,8 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
           <h1 className="font-script text-5xl sm:text-7xl md:text-8xl text-[#7A5E24] font-normal leading-tight drop-shadow-sm py-2">
             {COUPLE.groomName.split(" ")[0]} &amp; {COUPLE.brideName.split(" ")[0]}
           </h1>
-          <p className="font-sans text-[#594E3F] text-xs tracking-[0.25em] uppercase font-semibold">
-            {WEDDING.hashtag}
+          <p className="font-sans text-[#594E3F] text-xs tracking-[0.25em] uppercase font-bold">
+            Manullang &bull; Simanjuntak &bull; {WEDDING.hashtag}
           </p>
         </motion.div>
 
