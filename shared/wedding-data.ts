@@ -144,7 +144,7 @@ export const GIFT_REGISTRY: GiftRegistryItem[] = [
 ];
 
 export const QRIS_IMAGE_PATH = "/assets/qris-dummy.png";
-export const GONDANG_MUSIC_PATH = "/assets/music/gondang.mp3";
+export const GONDANG_MUSIC_PATH = "/assets/music/ClairdeLune.mp3";
 
 export const GALLERY_IMAGES: GalleryImageItem[] = [
   {
