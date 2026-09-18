@@ -11,7 +11,7 @@ interface RSVPFormProps {
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
-export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
+export default function RSVPForm({ guestName, slug }: Readonly<RSVPFormProps>) {
   const [attending, setAttending] = useState<"yes" | "no" | "">("yes");
   const [session, setSession] = useState("reception");
   const [guestCount, setGuestCount] = useState(2);
@@ -50,7 +50,7 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
           particleCount: 90,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ["#C5A869", "#EBD8B0", "#FAF7F2", "#9E7B35"],
+          colors: ["#C5A869", "#EBD8B0", "#FAF7F2", "#7A5E24"],
         });
       }
 
@@ -65,17 +65,18 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
   return (
     <section
       id="rsvp"
-      className="relative py-28 px-4 overflow-hidden bg-gradient-to-b from-[#F4ECE0]/90 via-[#EFE3D3]/95 to-[#FAF5EE]/90 border-t border-b border-[#C5A869]/25"
+      aria-label="RSVP Confirmation"
+      className="relative py-28 px-4 overflow-hidden bg-gradient-to-b from-[#F4ECE0]/90 via-[#EFE3D3]/95 to-[#FAF5EE]/90 border-t border-b border-[#7A5E24]/25"
     >
       {/* Decorative Glow */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-[#C5A869]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-[#D9BA82]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 left-10 w-72 h-72 bg-[#7A5E24]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-[#D9BA82]/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="max-w-xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <motion.p
-            className="font-sans text-[#9E7B35] text-xs uppercase tracking-[0.3em] mb-2 font-semibold"
+            className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -93,7 +94,7 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
             RSVP Confirmation
           </motion.h2>
           <motion.div
-            className="h-px w-20 bg-[#C5A869]/40 mx-auto mt-4"
+            className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -110,14 +111,14 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
           transition={{ duration: 0.7 }}
         >
           {formState === "success" ? (
-            <div className="text-center py-6 space-y-4">
-              <div className="w-14 h-14 mx-auto rounded-full bg-[#C5A869]/20 border border-[#9E7B35] flex items-center justify-center text-2xl">
+            <div className="text-center py-6 space-y-4" role="status" aria-live="polite">
+              <div className="w-14 h-14 mx-auto rounded-full bg-[#7A5E24]/20 border border-[#7A5E24] flex items-center justify-center text-2xl" aria-hidden="true">
                 ✨
               </div>
               <h3 className="font-serif text-[#2C251E] text-2xl sm:text-3xl font-light">
                 Thank You Graciously!
               </h3>
-              <p className="font-sans text-[#61574B] text-xs sm:text-sm max-w-sm mx-auto leading-relaxed font-light">
+              <p className="font-sans text-[#594E3F] text-xs sm:text-sm max-w-sm mx-auto leading-relaxed font-normal">
                 {attending === "yes"
                   ? "Your confirmation has been recorded. We truly look forward to celebrating this memorable day with you!"
                   : "Thank you for letting us know. Your prayers and blessings are forever appreciated."}
@@ -125,17 +126,17 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
               <button
                 type="button"
                 onClick={() => setFormState("idle")}
-                className="btn-wedding-outline mt-2 px-6 py-2 rounded-full text-xs font-sans"
+                className="btn-wedding-outline mt-2 px-6 py-2 rounded-full text-xs font-sans font-bold cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
               >
                 Modify Response
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate={false}>
               {/* Name Field */}
               <div>
-                <label htmlFor="rsvp-name" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
-                  Full Name <span className="text-[#A34848]">*</span>
+                <label htmlFor="rsvp-name" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
+                  Full Name <span className="text-[#8B1E2A]" aria-hidden="true">*</span>
                 </label>
                 <input
                   id="rsvp-name"
@@ -144,43 +145,47 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
                   onChange={(e) => setName(e.target.value)}
                   required
                   placeholder="Enter your full name"
-                  className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] focus:ring-1 focus:ring-[#9E7B35]/30 transition-colors shadow-sm"
+                  className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors shadow-sm"
                 />
               </div>
 
               {/* Attendance Choice */}
-              <div>
-                <label className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
-                  Will You Attend? <span className="text-[#A34848]">*</span>
-                </label>
-                <div className="grid grid-cols-2 gap-3">
+              <fieldset>
+                <legend className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
+                  Will You Attend? <span className="text-[#8B1E2A]" aria-hidden="true">*</span>
+                </legend>
+                <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Attendance selection">
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={attending === "yes"}
                     onClick={() => setAttending("yes")}
-                    className={`py-3 px-4 rounded-xl border font-sans text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                    className={`py-3 px-4 rounded-xl border font-sans text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
                       attending === "yes"
-                        ? "bg-champagne-gold text-white border-[#9E7B35] shadow-md shadow-[#9E7B35]/25"
-                        : "bg-white border-[#C5A869]/30 text-[#61574B] hover:border-[#9E7B35]"
+                        ? "bg-champagne-gold text-white border-[#7A5E24] shadow-md shadow-[#7A5E24]/25"
+                        : "bg-white border-[#7A5E24]/30 text-[#594E3F] hover:border-[#7A5E24]"
                     }`}
                   >
-                    <span>✅</span>
+                    <span aria-hidden="true">✅</span>
                     <span>Joyfully Accept</span>
                   </button>
 
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={attending === "no"}
                     onClick={() => setAttending("no")}
-                    className={`py-3 px-4 rounded-xl border font-sans text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                    className={`py-3 px-4 rounded-xl border font-sans text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
                       attending === "no"
                         ? "bg-[#6B1D24] text-white border-[#6B1D24] shadow-md"
-                        : "bg-white border-[#C5A869]/30 text-[#61574B] hover:border-[#9E7B35]"
+                        : "bg-white border-[#7A5E24]/30 text-[#594E3F] hover:border-[#7A5E24]"
                     }`}
                   >
-                    <span>❌</span>
+                    <span aria-hidden="true">❌</span>
                     <span>Regretfully Decline</span>
                   </button>
                 </div>
-              </div>
+              </fieldset>
 
               {/* Details if Attending */}
               <AnimatePresence>
@@ -189,48 +194,50 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="space-y-4 pt-2 border-t border-[#C5A869]/20"
+                    className="space-y-4 pt-2 border-t border-[#7A5E24]/20"
                   >
                     <div>
-                      <label htmlFor="rsvp-session" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
+                      <label htmlFor="rsvp-session" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
                         Event Session
                       </label>
                       <select
                         id="rsvp-session"
                         value={session}
                         onChange={(e) => setSession(e.target.value)}
-                        className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm focus:outline-none focus:border-[#9E7B35] transition-colors cursor-pointer shadow-sm"
+                        className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors cursor-pointer shadow-sm"
                       >
-                        <option value="reception">🥂 Wedding Reception (12:00 PM – 03:00 PM)</option>
-                        <option value="matrimony">⛪ Holy Matrimony (09:00 AM – 11:00 AM)</option>
-                        <option value="traditional">🎭 Heritage Blessing (03:30 PM – 06:00 PM)</option>
+                        <option value="reception">🥂 Wedding Reception (12:00 PM - 03:00 PM)</option>
+                        <option value="matrimony">⛪ Holy Matrimony (09:00 AM - 11:00 AM)</option>
+                        <option value="traditional">🎭 Heritage Blessing (03:30 PM - 06:00 PM)</option>
                         <option value="all">✨ All Sessions</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
+                      <label htmlFor="rsvp-guests-count" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
                         Number of Guests
                       </label>
-                      <div className="flex items-center gap-4 bg-white border border-[#C5A869]/30 rounded-xl p-2 w-fit shadow-sm">
+                      <div className="flex items-center gap-4 bg-white border border-[#7A5E24]/30 rounded-xl p-2 w-fit shadow-sm">
                         <button
                           type="button"
                           onClick={() => setGuestCount(Math.max(1, guestCount - 1))}
-                          className="w-8 h-8 rounded-lg bg-[#C5A869]/15 hover:bg-[#C5A869]/30 text-[#7A5E24] flex items-center justify-center font-bold text-base transition-colors cursor-pointer"
+                          className="w-8 h-8 rounded-lg bg-[#7A5E24]/15 hover:bg-[#7A5E24]/30 text-[#634A16] flex items-center justify-center font-bold text-base transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
+                          aria-label="Decrease guest count"
                         >
                           −
                         </button>
-                        <span className="font-serif text-[#2C251E] text-lg w-7 text-center tabular-nums font-semibold">
+                        <span id="rsvp-guests-count" className="font-serif text-[#2C251E] text-lg w-7 text-center tabular-nums font-bold" aria-live="polite">
                           {guestCount}
                         </span>
                         <button
                           type="button"
                           onClick={() => setGuestCount(Math.min(6, guestCount + 1))}
-                          className="w-8 h-8 rounded-lg bg-[#C5A869]/15 hover:bg-[#C5A869]/30 text-[#7A5E24] flex items-center justify-center font-bold text-base transition-colors cursor-pointer"
+                          className="w-8 h-8 rounded-lg bg-[#7A5E24]/15 hover:bg-[#7A5E24]/30 text-[#634A16] flex items-center justify-center font-bold text-base transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
+                          aria-label="Increase guest count"
                         >
                           +
                         </button>
-                        <span className="text-[#8E8272] text-xs font-sans pr-2">Person(s)</span>
+                        <span className="text-[#594E3F] text-xs font-sans pr-2 font-medium">Person(s)</span>
                       </div>
                     </div>
                   </motion.div>
@@ -239,7 +246,7 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
 
               {/* Message */}
               <div>
-                <label htmlFor="rsvp-message" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
+                <label htmlFor="rsvp-message" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
                   Wishes &amp; Blessings
                 </label>
                 <textarea
@@ -248,18 +255,21 @@ export default function RSVPForm({ guestName, slug }: RSVPFormProps) {
                   onChange={(e) => setMessage(e.target.value)}
                   rows={3}
                   placeholder="Leave your heartfelt prayers and congratulations for the newlyweds..."
-                  className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] transition-colors resize-none shadow-sm"
+                  className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors resize-none shadow-sm"
                 />
               </div>
 
               {errorMsg && (
-                <p className="text-[#A34848] text-xs font-sans text-center">{errorMsg}</p>
+                <p className="text-[#8B1E2A] text-xs font-sans text-center font-semibold" role="alert">
+                  {errorMsg}
+                </p>
               )}
 
               <button
                 type="submit"
                 disabled={formState === "submitting" || !name.trim()}
-                className="btn-wedding-gold w-full py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-sans font-bold cursor-pointer disabled:opacity-40"
+                className="btn-wedding-gold w-full py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-sans font-bold cursor-pointer disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-[#7A5E24] focus-visible:ring-offset-2"
+                aria-busy={formState === "submitting"}
               >
                 {formState === "submitting" ? "Submitting RSVP..." : "Send RSVP Confirmation ✨"}
               </button>

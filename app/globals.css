@@ -7,15 +7,16 @@
   --color-linen: #eae2d3;
   
   --color-espresso: #2c251e;
-  --color-taupe: #61574b;
-  --color-taupe-light: #8e8272;
+  --color-taupe: #594e3f;
+  --color-taupe-light: #61574b;
   
-  --color-gold: #9e7b35;
+  --color-gold: #7a5e24;
+  --color-gold-accent: #9e7b35;
   --color-gold-light: #c5a869;
   --color-gold-pale: #eeddb7;
   
   --color-blush: #f7ede6;
-  --color-rose: #a34848;
+  --color-rose: #8b1e2a;
 
   --font-serif: var(--font-serif), Georgia, serif;
   --font-script: var(--font-script), cursive;
@@ -36,48 +37,48 @@
 }
 
 .bg-champagne-gold {
-  background: linear-gradient(135deg, #c5a869 0%, #9e7b35 100%);
+  background: linear-gradient(135deg, #9e7b35 0%, #7a5e24 100%);
 }
 
 .bg-champagne-gold-soft {
-  background: linear-gradient(135deg, rgba(197, 168, 105, 0.15) 0%, rgba(197, 168, 105, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(158, 123, 53, 0.15) 0%, rgba(122, 94, 36, 0.05) 100%);
 }
 
 .text-gold-gradient {
-  background: linear-gradient(135deg, #a6843e 0%, #826325 100%);
+  background: linear-gradient(135deg, #8a6823 0%, #634a16 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Glassmorphic Warm Wedding Surface */
 .glass-wedding-card {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(197, 168, 105, 0.28);
-  box-shadow: 0 15px 35px -8px rgba(120, 95, 45, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+  border: 1px solid rgba(158, 123, 53, 0.28);
+  box-shadow: 0 15px 35px -8px rgba(90, 70, 30, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
 }
 
 .glass-wedding-card:hover {
-  border-color: rgba(197, 168, 105, 0.5);
-  box-shadow: 0 20px 45px -8px rgba(120, 95, 45, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  border-color: rgba(158, 123, 53, 0.5);
+  box-shadow: 0 20px 45px -8px rgba(90, 70, 30, 0.14), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
 }
 
 /* Buttons */
 .btn-wedding-gold {
-  background: linear-gradient(135deg, #c5a869 0%, #9e7b35 100%);
+  background: linear-gradient(135deg, #9e7b35 0%, #7a5e24 100%);
   color: #ffffff;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 6px 20px -2px rgba(158, 123, 53, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 18px -2px rgba(122, 94, 36, 0.35);
 }
 
 .btn-wedding-gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(158, 123, 53, 0.5);
-  filter: brightness(1.05);
+  box-shadow: 0 10px 24px rgba(122, 94, 36, 0.45);
+  filter: brightness(1.06);
 }
 
 .btn-wedding-gold:active {
@@ -85,17 +86,44 @@
 }
 
 .btn-wedding-outline {
-  border: 1px solid rgba(158, 123, 53, 0.4);
-  color: #7a5e24;
-  background: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(122, 94, 36, 0.5);
+  color: #634a16;
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
   transition: all 0.25s ease;
 }
 
 .btn-wedding-outline:hover {
-  border-color: #9e7b35;
-  background: rgba(197, 168, 105, 0.12);
+  border-color: #7a5e24;
+  background: rgba(158, 123, 53, 0.14);
   color: #2c251e;
+}
+
+/* WCAG Accessible Focus Rings */
+:focus-visible {
+  outline: 2px solid #7a5e24 !important;
+  outline-offset: 2px !important;
+}
+
+/* Skip link for keyboard accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: #2c251e;
+  color: #ffffff;
+  padding: 10px 18px;
+  z-index: 100;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-to-content:focus {
+  top: 16px;
+  outline: 2px solid #c5a869;
 }
 
 /* Custom Scrollbar */
@@ -106,11 +134,11 @@
   background: #fbf8f3;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(197, 168, 105, 0.4);
+  background: rgba(158, 123, 53, 0.45);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(158, 123, 53, 0.7);
+  background: rgba(122, 94, 36, 0.75);
 }
 
 /* Animations */
@@ -138,4 +166,16 @@
 
 .animate-spin-slow {
   animation: spinSlow 16s linear infinite;
+}
+
+/* Reduced motion preference for accessibility (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

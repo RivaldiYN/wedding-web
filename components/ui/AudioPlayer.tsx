@@ -56,18 +56,19 @@ export default function AudioPlayer() {
       >
         <button
           onClick={toggle}
-          className="group relative w-12 h-12 sm:w-13 sm:h-13 rounded-full flex items-center justify-center bg-[#0B0C10]/90 border border-[#C5A869]/40 backdrop-blur-md shadow-2xl hover:border-[#C5A869] hover:scale-105 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C5A869]"
-          aria-label={isPlaying ? "Jeda Musik" : "Putar Musik"}
-          title={isPlaying ? "Jeda Musik Latar" : "Putar Musik Latar"}
+          className="group relative w-12 h-12 sm:w-13 sm:h-13 rounded-full flex items-center justify-center bg-[#1A1612]/95 border border-[#7A5E24]/60 backdrop-blur-md shadow-2xl hover:border-[#7A5E24] hover:scale-105 transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] focus-visible:ring-offset-2"
+          aria-label={isPlaying ? "Pause background music" : "Play background music"}
+          title={isPlaying ? "Pause background music" : "Play background music"}
         >
           <AnimatePresence>
             {isPlaying && (
               <motion.div
-                className="absolute inset-0 rounded-full border border-[#C5A869]/40"
+                className="absolute inset-0 rounded-full border border-[#7A5E24]/40"
                 initial={{ scale: 1, opacity: 0.8 }}
                 animate={{ scale: 1.5, opacity: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
+                aria-hidden="true"
               />
             )}
           </AnimatePresence>
@@ -76,19 +77,20 @@ export default function AudioPlayer() {
             className={`w-full h-full rounded-full flex items-center justify-center p-1 ${
               isPlaying ? "animate-spin-slow" : ""
             }`}
+            aria-hidden="true"
           >
-            <div className="w-full h-full rounded-full bg-[#13141A] border border-[#C5A869]/25 flex items-center justify-center relative shadow-inner">
-              <div className="w-6 h-6 rounded-full border border-[#C5A869]/20 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-champagne-gradient" />
+            <div className="w-full h-full rounded-full bg-[#13141A] border border-[#7A5E24]/25 flex items-center justify-center relative shadow-inner">
+              <div className="w-6 h-6 rounded-full border border-[#7A5E24]/20 flex items-center justify-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-champagne-gold" />
               </div>
             </div>
           </div>
 
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-full">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-full" aria-hidden="true">
             {isPlaying ? (
               <div className="flex items-center gap-0.5 h-3">
                 <span className="w-1 h-3 bg-[#EBD8B0] rounded-full animate-pulse" />
-                <span className="w-1 h-2 bg-[#C5A869] rounded-full animate-pulse delay-75" />
+                <span className="w-1 h-2 bg-[#7A5E24] rounded-full animate-pulse delay-75" />
                 <span className="w-1 h-3 bg-[#EBD8B0] rounded-full animate-pulse delay-150" />
               </div>
             ) : (

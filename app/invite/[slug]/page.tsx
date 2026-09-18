@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   return {
-    title: `The Wedding of ${COUPLE.displayName} — Invitation for ${guestName}`,
+    title: `The Wedding of ${COUPLE.displayName} | Invitation for ${guestName}`,
     description: `${guestName}, you are cordially invited to celebrate the wedding of ${COUPLE.groomName} & ${COUPLE.brideName} on ${WEDDING.displayDate}.`,
     openGraph: {
-      title: `💍 ${COUPLE.groomName} & ${COUPLE.brideName} — Wedding Invitation for ${guestName}`,
+      title: `💍 ${COUPLE.groomName} & ${COUPLE.brideName}: Wedding Invitation for ${guestName}`,
       description: `We joyfully invite ${guestName} to celebrate our special day. ${WEDDING.displayDate}.`,
       type: "website",
       url: `${baseUrl}/invite/${slug}`,
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `The Wedding of ${COUPLE.displayName}`,
-      description: `Dear ${guestName} — You are cordially invited to celebrate with us!`,
+      description: `Dear ${guestName}: You are cordially invited to celebrate with us!`,
     },
   };
 }

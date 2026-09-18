@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { isAdminAuthenticated } from "@/lib/auth";
 import { sanitizeText, sanitizeSlug } from "@/lib/sanitize";
 
-// GET Invitations — Admin Only
+// GET Invitations: Admin Only
 export async function GET() {
   try {
     const isAuth = await isAdminAuthenticated();
@@ -21,7 +21,7 @@ export async function GET() {
   }
 }
 
-// POST Invitation Link — Admin Only with Sanitization & Collision Resilience
+// POST Invitation Link: Admin Only with Sanitization & Collision Resilience
 export async function POST(req: NextRequest) {
   try {
     const isAuth = await isAdminAuthenticated();

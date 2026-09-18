@@ -58,7 +58,7 @@ export default function FloatingNav({ isVisible }: Readonly<FloatingNavProps>) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 25 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 max-w-[95vw] px-2 sm:px-3 py-1.5 rounded-full glass-wedding-card shadow-xl border border-[#C5A869]/35 flex items-center gap-1 sm:gap-1.5"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 max-w-[95vw] px-2 sm:px-3 py-1.5 rounded-full glass-wedding-card shadow-xl border border-[#7A5E24]/35 flex items-center gap-1 sm:gap-1.5"
           aria-label="Quick Wedding Navigation"
         >
           {navItems.map((item) => {
@@ -67,15 +67,16 @@ export default function FloatingNav({ isVisible }: Readonly<FloatingNavProps>) {
               <button
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-sans transition-all flex items-center gap-1 cursor-pointer ${
+                aria-current={isActive ? "page" : undefined}
+                className={`min-h-[36px] px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-sans transition-all flex items-center gap-1 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
                   isActive
-                    ? "bg-champagne-gold text-white font-semibold shadow-sm"
-                    : "text-[#61574B] hover:text-[#2C251E] hover:bg-[#C5A869]/15"
+                    ? "bg-champagne-gold text-white font-bold shadow-sm"
+                    : "text-[#594E3F] hover:text-[#2C251E] hover:bg-[#7A5E24]/15 font-medium"
                 }`}
-                aria-label={`Jump to ${item.label}`}
+                aria-label={`Jump to ${item.label} section`}
               >
-                <span>{item.icon}</span>
-                <span className="hidden md:inline text-[11px] font-medium">{item.label}</span>
+                <span aria-hidden="true">{item.icon}</span>
+                <span className="hidden md:inline text-[11px]">{item.label}</span>
               </button>
             );
           })}

@@ -37,8 +37,8 @@ export default function AdminPage() {
 
   if (checking) {
     return (
-      <div className="min-h-screen bg-[#FBF8F3] flex items-center justify-center">
-        <div className="text-[#9E7B35] font-sans text-sm animate-pulse">Verifying session...</div>
+      <div className="min-h-screen bg-[#FBF8F3] flex items-center justify-center" role="status" aria-live="polite">
+        <div className="text-[#7A5E24] font-sans text-sm animate-pulse font-bold">Verifying session...</div>
       </div>
     );
   }
@@ -50,20 +50,20 @@ export default function AdminPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#FBF8F3] text-[#2C251E] bg-wedding-paper">
+    <div className="min-h-screen bg-[#FBF8F3] text-[#2C251E] bg-wedding-paper">
       {/* Top bar */}
-      <header className="sticky top-0 z-30 bg-[#FAF7F2]/90 border-b border-[#C5A869]/25 backdrop-blur-md">
+      <header className="sticky top-0 z-30 bg-[#FAF7F2]/95 border-b border-[#7A5E24]/25 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-6 w-1 bg-champagne-gold rounded-full" />
-            <h1 className="font-serif text-[#2C251E] text-lg font-normal">Admin Dashboard</h1>
-            <span className="font-sans text-[#8E8272] text-xs hidden sm:block">
+            <div className="h-6 w-1 bg-champagne-gold rounded-full" aria-hidden="true" />
+            <h1 className="font-serif text-[#2C251E] text-lg font-medium">Admin Dashboard</h1>
+            <span className="font-sans text-[#594E3F] text-xs hidden sm:block font-medium">
               {COUPLE.displayName} Wedding
             </span>
           </div>
           <button
             onClick={handleLogout}
-            className="font-sans text-[#8E8272] text-xs uppercase tracking-wider hover:text-[#A34848] transition-colors cursor-pointer"
+            className="font-sans text-[#594E3F] text-xs uppercase tracking-wider hover:text-[#8B1E2A] transition-colors cursor-pointer font-bold focus-visible:ring-2 focus-visible:ring-[#7A5E24] rounded px-3 py-1.5"
             aria-label="Sign out of admin panel"
           >
             Sign Out →
@@ -71,26 +71,29 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <main id="main-content" className="max-w-6xl mx-auto px-4 py-8">
         {/* Tab navigation */}
         <nav className="flex gap-2 mb-8 glass-wedding-card rounded-2xl p-1.5 shadow-sm" aria-label="Admin Navigation Tabs">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-sans text-xs sm:text-sm transition-all cursor-pointer ${
-                activeTab === tab.id
-                  ? "bg-champagne-gold text-white font-semibold shadow-md shadow-[#9E7B35]/20"
-                  : "text-[#61574B] hover:text-[#2C251E] hover:bg-[#C5A869]/10"
-              }`}
-              aria-selected={activeTab === tab.id}
-              aria-controls={`tab-${tab.id}`}
-              role="tab"
-            >
-              <span aria-hidden="true">{tab.icon}</span>
-              <span className="font-medium">{tab.label}</span>
-            </button>
-          ))}
+          <div className="flex w-full gap-2" role="tablist" aria-label="Dashboard sections">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                id={`tab-btn-${tab.id}`}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-sans text-xs sm:text-sm transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
+                  activeTab === tab.id
+                    ? "bg-champagne-gold text-white font-bold shadow-md shadow-[#7A5E24]/20"
+                    : "text-[#594E3F] hover:text-[#2C251E] hover:bg-[#7A5E24]/10 font-medium"
+                }`}
+                aria-selected={activeTab === tab.id}
+                aria-controls={`tab-panel-${tab.id}`}
+                role="tab"
+              >
+                <span aria-hidden="true">{tab.icon}</span>
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
         </nav>
 
         {/* Tab content */}
@@ -100,13 +103,14 @@ export default function AdminPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
           role="tabpanel"
-          id={`tab-${activeTab}`}
+          id={`tab-panel-${activeTab}`}
+          aria-labelledby={`tab-btn-${activeTab}`}
         >
           {activeTab === "links" && <LinkGenerator />}
           {activeTab === "rsvp" && <RSVPDashboard />}
           {activeTab === "wishes" && <WishesModeration />}
         </motion.div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

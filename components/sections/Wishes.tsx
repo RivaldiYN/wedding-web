@@ -77,16 +77,17 @@ export default function Wishes() {
   return (
     <section
       id="wishes"
+      aria-label="Prayers, Wishes and Guestbook"
       className="relative py-28 px-4 overflow-hidden bg-gradient-to-b from-[#FAF5EE]/90 via-[#FDFBF7]/95 to-[#EFE3D3]/90"
     >
       {/* Decorative Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[650px] h-[450px] bg-[#C5A869]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[650px] h-[450px] bg-[#7A5E24]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Header with Animate On Scroll */}
         <div className="text-center mb-12">
           <motion.p
-            className="font-sans text-[#9E7B35] text-xs uppercase tracking-[0.3em] mb-2 font-semibold"
+            className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
             initial={{ opacity: 0, y: -10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -104,7 +105,7 @@ export default function Wishes() {
             Guestbook &amp; Blessings
           </motion.h2>
           <motion.div
-            className="h-px w-20 bg-[#C5A869]/40 mx-auto mt-4"
+            className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -122,8 +123,8 @@ export default function Wishes() {
           transition={{ duration: 0.5 }}
         >
           <div>
-            <label htmlFor="wish-name" className="block text-xs font-sans text-[#2C251E] uppercase tracking-wider font-semibold mb-2">
-              Your Name
+            <label htmlFor="wish-name" className="block text-xs font-sans text-[#2C251E] uppercase tracking-wider font-bold mb-2">
+              Your Name <span className="text-[#8B1E2A]" aria-hidden="true">*</span>
             </label>
             <input
               id="wish-name"
@@ -132,13 +133,13 @@ export default function Wishes() {
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. John Doe &amp; Family"
               required
-              className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] transition-colors shadow-sm"
+              className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors shadow-sm"
             />
           </div>
 
           <div>
-            <label htmlFor="wish-text" className="block text-xs font-sans text-[#2C251E] uppercase tracking-wider font-semibold mb-2">
-              Your Warm Wishes &amp; Blessings
+            <label htmlFor="wish-text" className="block text-xs font-sans text-[#2C251E] uppercase tracking-wider font-bold mb-2">
+              Your Warm Wishes &amp; Blessings <span className="text-[#8B1E2A]" aria-hidden="true">*</span>
             </label>
             <textarea
               id="wish-text"
@@ -147,7 +148,7 @@ export default function Wishes() {
               placeholder="Write your prayers and congratulatory message for the couple..."
               rows={3}
               required
-              className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] transition-colors resize-none shadow-sm"
+              className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors resize-none shadow-sm"
             />
           </div>
 
@@ -157,7 +158,9 @@ export default function Wishes() {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="p-3 rounded-xl bg-[#C5A869]/15 border border-[#C5A869]/40 text-[#7A5E24] text-xs font-sans text-center font-medium"
+                role="status"
+                aria-live="polite"
+                className="p-3 rounded-xl bg-[#7A5E24]/15 border border-[#7A5E24]/40 text-[#634A16] text-xs font-sans text-center font-bold"
               >
                 ✨ Thank you! Your warm blessing has been shared with the couple.
               </motion.div>
@@ -167,7 +170,8 @@ export default function Wishes() {
           <button
             type="submit"
             disabled={sending || !name.trim() || !message.trim()}
-            className="btn-wedding-gold w-full py-3.5 rounded-full text-xs font-sans font-bold cursor-pointer disabled:opacity-40"
+            className="btn-wedding-gold w-full py-3.5 rounded-full text-xs font-sans font-bold cursor-pointer disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-[#7A5E24] focus-visible:ring-offset-2"
+            aria-busy={sending}
           >
             {sending ? "Sending Message..." : "Share Warm Wishes 💌"}
           </button>
@@ -176,20 +180,21 @@ export default function Wishes() {
         {/* Feed Header */}
         <div className="flex items-center justify-between max-w-5xl mx-auto mb-6 px-2">
           <div className="flex items-center gap-2">
-            <span className="text-[#9E7B35] text-base">💬</span>
-            <span className="font-serif text-[#2C251E] text-xl font-normal">
+            <span className="text-[#7A5E24] text-base" aria-hidden="true">💬</span>
+            <h3 className="font-serif text-[#2C251E] text-xl font-normal">
               Heartfelt Blessings ({wishes.length})
-            </span>
+            </h3>
           </div>
           <button
             onClick={fetchWishes}
-            className="text-xs font-sans text-[#7A5E24] hover:underline flex items-center gap-1 cursor-pointer font-medium"
+            className="text-xs font-sans text-[#634A16] hover:underline flex items-center gap-1 cursor-pointer font-bold focus-visible:ring-2 focus-visible:ring-[#7A5E24] rounded px-2 py-1"
+            aria-label="Refresh wishes list"
           >
-            <span>🔄</span> Refresh
+            <span aria-hidden="true">🔄</span> Refresh
           </button>
         </div>
 
-        {/* Wishes Masonry Feed (Limited to 6 by default) */}
+        {/* Wishes Masonry Feed */}
         <motion.div
           layout
           className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
@@ -201,6 +206,7 @@ export default function Wishes() {
                 <motion.article
                   layout
                   key={wish.id || idx}
+                  aria-label={`Wish from ${wish.name}`}
                   className="break-inside-avoid glass-wedding-card rounded-3xl p-5 space-y-3 transition-all shadow-sm"
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -209,14 +215,14 @@ export default function Wishes() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-[#C5A869]/20 border border-[#C5A869]/40 text-[#7A5E24] font-serif font-bold text-xs flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-[#7A5E24]/20 border border-[#7A5E24]/40 text-[#634A16] font-serif font-bold text-xs flex items-center justify-center" aria-hidden="true">
                         {wish.name.charAt(0).toUpperCase()}
                       </div>
                       <div>
                         <h4 className="font-serif text-[#2C251E] font-medium text-sm leading-tight">
                           {wish.name}
                         </h4>
-                        <span className="text-[10px] text-[#8E8272] font-sans block">
+                        <time className="text-[11px] text-[#594E3F] font-sans block font-normal">
                           {wish.createdAt
                             ? new Date(wish.createdAt).toLocaleDateString("en-US", {
                                 month: "short",
@@ -225,22 +231,23 @@ export default function Wishes() {
                                 minute: "2-digit",
                               })
                             : "Just now"}
-                        </span>
+                        </time>
                       </div>
                     </div>
 
                     <button
                       onClick={() => toggleLike(wish.id)}
-                      className={`text-sm p-1 rounded-full transition-transform active:scale-125 cursor-pointer ${
-                        isLiked ? "text-rose-500" : "text-[#8E8272]/40 hover:text-rose-400"
+                      className={`text-sm p-1.5 rounded-full transition-transform active:scale-125 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
+                        isLiked ? "text-rose-600" : "text-[#594E3F]/60 hover:text-rose-600"
                       }`}
-                      aria-label="Like message"
+                      aria-label={isLiked ? `Unlike message from ${wish.name}` : `Like message from ${wish.name}`}
+                      aria-pressed={isLiked}
                     >
                       {isLiked ? "❤️" : "🤍"}
                     </button>
                   </div>
 
-                  <p className="font-sans text-[#61574B] text-xs sm:text-sm leading-relaxed font-light italic">
+                  <p className="font-sans text-[#594E3F] text-xs sm:text-sm leading-relaxed font-normal italic">
                     &ldquo;{wish.message}&rdquo;
                   </p>
                 </motion.article>
@@ -258,7 +265,8 @@ export default function Wishes() {
           >
             <button
               onClick={() => setShowAll(!showAll)}
-              className="btn-wedding-outline px-8 py-3 rounded-full text-xs font-sans font-semibold uppercase tracking-wider cursor-pointer shadow-sm hover:scale-105 transition-all"
+              className="btn-wedding-outline px-8 py-3 rounded-full text-xs font-sans font-bold uppercase tracking-wider cursor-pointer shadow-sm hover:scale-105 transition-all focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
+              aria-expanded={showAll}
             >
               {showAll ? "Show Less ↑" : `Show All (${wishes.length} Wishes) ↓`}
             </button>

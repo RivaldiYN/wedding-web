@@ -4,7 +4,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { sanitizeText, sanitizeSlug, sanitizeNumber } from "@/lib/sanitize";
 import { isAdminAuthenticated } from "@/lib/auth";
 
-// GET RSVPs — Admin Only
+// GET RSVPs: Admin Only
 export async function GET() {
   try {
     const isAuth = await isAdminAuthenticated();
@@ -22,7 +22,7 @@ export async function GET() {
   }
 }
 
-// POST RSVP — Public with Rate Limiting and Input Sanitization
+// POST RSVP: Public with Rate Limiting and Input Sanitization
 export async function POST(req: NextRequest) {
   try {
     // Rate Limit: 10 RSVP submissions per 5 minutes per IP

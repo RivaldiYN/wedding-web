@@ -46,20 +46,20 @@ export default function AdminLoginPage() {
       >
         {/* Header Title */}
         <div className="text-center mb-8">
-          <div className="h-px w-16 bg-[#C5A869]/40 mx-auto mb-5" />
+          <div className="h-px w-16 bg-[#7A5E24]/40 mx-auto mb-5" aria-hidden="true" />
           <h1 className="font-serif text-[#2C251E] text-3xl font-light">Admin Portal</h1>
-          <p className="font-sans text-[#8E8272] text-xs mt-2 uppercase tracking-[0.25em] font-medium">
+          <p className="font-sans text-[#594E3F] text-xs mt-2 uppercase tracking-[0.25em] font-bold">
             Wedding Management Dashboard
           </p>
-          <div className="h-px w-16 bg-[#C5A869]/40 mx-auto mt-5" />
+          <div className="h-px w-16 bg-[#7A5E24]/40 mx-auto mt-5" aria-hidden="true" />
         </div>
 
         {/* Card */}
         <div className="glass-wedding-card rounded-3xl p-8 shadow-2xl space-y-6">
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label htmlFor="admin-email" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
-                Admin Email Address
+              <label htmlFor="admin-email" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
+                Admin Email Address <span className="text-[#8B1E2A]" aria-hidden="true">*</span>
               </label>
               <input
                 id="admin-email"
@@ -69,13 +69,13 @@ export default function AdminLoginPage() {
                 required
                 autoComplete="email"
                 placeholder="admin@example.com"
-                className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] transition-colors shadow-sm"
+                className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors shadow-sm"
               />
             </div>
 
             <div>
-              <label htmlFor="admin-password" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-semibold mb-2">
-                Security Password
+              <label htmlFor="admin-password" className="block font-sans text-[#2C251E] text-xs uppercase tracking-wider font-bold mb-2">
+                Security Password <span className="text-[#8B1E2A]" aria-hidden="true">*</span>
               </label>
               <input
                 id="admin-password"
@@ -85,12 +85,12 @@ export default function AdminLoginPage() {
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] transition-colors shadow-sm"
+                className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors shadow-sm"
               />
             </div>
 
             {error && (
-              <p className="text-[#A34848] text-xs font-sans text-center" role="alert">
+              <p className="text-[#8B1E2A] text-xs font-sans text-center font-semibold" role="alert">
                 {error}
               </p>
             )}
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-wedding-gold w-full py-3.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider cursor-pointer shadow-lg disabled:opacity-40"
+              className="btn-wedding-gold w-full py-3.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider cursor-pointer shadow-lg disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-[#7A5E24] focus-visible:ring-offset-2"
               aria-busy={loading}
             >
               {loading ? "Signing In..." : "Sign In to Dashboard →"}
@@ -106,8 +106,8 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center font-sans text-[#8E8272] text-xs mt-6">
-          Authorized personnel only &bull; Jacob &amp; Ghifa Wedding
+        <p className="text-center font-sans text-[#594E3F] text-xs mt-6 font-medium">
+          Authorized personnel only &bull; Jacob &amp; Ghina Wedding
         </p>
       </motion.div>
     </main>

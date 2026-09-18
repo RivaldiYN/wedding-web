@@ -50,7 +50,10 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${alexBrush.variable} ${jakarta.variable} scroll-smooth`}
     >
-      <body className="bg-[#FBF8F3] text-[#2C251E] font-sans antialiased selection:bg-[#C5A869] selection:text-[#FFFFFF]">
+      <body className="bg-[#FBF8F3] text-[#2C251E] font-sans antialiased selection:bg-[#7A5E24] selection:text-[#FFFFFF]">
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
         {children}
       </body>
     </html>

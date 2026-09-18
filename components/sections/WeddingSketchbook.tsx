@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -78,23 +78,42 @@ export default function WeddingSketchbook() {
     setLensPos({ x, y });
   }, []);
 
-  const nextPage = () => {
+  const nextPage = useCallback(() => {
     setCurrentPage((prev) => (prev + 1) % SKETCH_PAGES.length);
-  };
+  }, []);
 
-  const prevPage = () => {
+  const prevPage = useCallback(() => {
     setCurrentPage((prev) => (prev - 1 + SKETCH_PAGES.length) % SKETCH_PAGES.length);
-  };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const el = document.activeElement;
+      if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA")) return;
+      if (e.key === "ArrowRight") nextPage();
+      if (e.key === "ArrowLeft") prevPage();
+    };
+
+    const container = bookRef.current;
+    if (container) {
+      container.addEventListener("keydown", handleKeyDown);
+      return () => container.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [nextPage, prevPage]);
 
   return (
-    <section id="sketchbook" className="relative py-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#FAF5EE]/90 via-[#F7EFE4]/95 to-[#EFE4D6]/90 border-t border-b border-[#C5A869]/25">
+    <section
+      id="sketchbook"
+      aria-label="Tactile Illustrated Sketchbook"
+      className="relative py-28 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-[#FAF5EE]/90 via-[#F7EFE4]/95 to-[#EFE4D6]/90 border-t border-b border-[#7A5E24]/25"
+    >
       {/* Decorative Warm Ambient Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-[#C5A869]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-[#7A5E24]/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
 
       {/* Header */}
       <div className="max-w-4xl mx-auto text-center mb-12 relative z-10">
         <motion.p
-          className="font-sans text-[#9E7B35] text-xs uppercase tracking-[0.35em] mb-2 font-semibold"
+          className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.35em] mb-2 font-bold"
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
@@ -112,14 +131,14 @@ export default function WeddingSketchbook() {
           Our Illustrated Sketchbook
         </motion.h2>
         <motion.div
-          className="h-px w-20 bg-[#C5A869]/40 mx-auto mt-4"
+          className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.5, delay: 0.15 }}
         />
-        <p className="font-sans text-[#8E8272] text-xs sm:text-sm mt-3 max-w-md mx-auto italic font-light">
-          Move your cursor or drag the magnifying glass 🔍 to inspect our watercolor memories.
+        <p className="font-sans text-[#594E3F] text-xs sm:text-sm mt-3 max-w-md mx-auto italic font-normal">
+          Move your cursor to inspect watercolor memories with the gold magnifying glass, or use left/right controls.
         </p>
       </div>
 
@@ -127,24 +146,27 @@ export default function WeddingSketchbook() {
       <div className="max-w-5xl mx-auto relative z-10 select-none">
         <div
           ref={bookRef}
+          tabIndex={0}
+          role="region"
+          aria-label={`Illustrated sketchbook plate ${page.id} of ${SKETCH_PAGES.length}: ${page.title}. Use arrow keys to navigate.`}
           onPointerMove={handlePointerMove}
           onPointerEnter={() => setIsHovered(true)}
           onPointerLeave={() => setIsHovered(false)}
-          className="relative w-full aspect-[16/10] min-h-[420px] max-h-[640px] rounded-3xl p-3 sm:p-6 bg-[#E8DFD3] shadow-2xl border-4 border-[#D4C5B0] overflow-hidden flex cursor-crosshair"
+          className="relative w-full aspect-[16/10] min-h-[420px] max-h-[640px] rounded-3xl p-3 sm:p-6 bg-[#E8DFD3] shadow-2xl border-4 border-[#D4C5B0] overflow-hidden flex cursor-crosshair focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
           style={{
             backgroundImage: "radial-gradient(circle at 50% 50%, #FAF6F0 0%, #E9DECFA0 100%)",
             boxShadow: "0 25px 60px -15px rgba(60, 45, 30, 0.25), inset 0 2px 6px rgba(255,255,255,0.6)",
           }}
         >
           {/* Central Book Spine Shadow / Crease */}
-          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-black/15 via-black/25 to-black/15 z-20 pointer-events-none blur-[1px]" />
-          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-black/30 z-20 pointer-events-none" />
+          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-black/15 via-black/25 to-black/15 z-20 pointer-events-none blur-[1px]" aria-hidden="true" />
+          <div className="absolute inset-y-0 left-1/2 w-[1px] bg-black/30 z-20 pointer-events-none" aria-hidden="true" />
 
           {/* Left Page (Story, Watercolor Notes, Date & Signature Seal) */}
           <div className="w-1/2 h-full bg-[#FAF7F2] rounded-l-2xl p-6 sm:p-10 flex flex-col justify-between relative shadow-inner border-r border-[#E0D5C1]/60 overflow-hidden">
             {/* Botanical Floral Corner Watermark */}
-            <div className="absolute top-0 left-0 w-32 h-32 pointer-events-none opacity-20">
-              <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-[#9E7B35]">
+            <div className="absolute top-0 left-0 w-32 h-32 pointer-events-none opacity-20" aria-hidden="true">
+              <svg viewBox="0 0 100 100" fill="none" className="w-full h-full text-[#7A5E24]">
                 <path d="M10 10 C30 30 50 10 70 30 C50 50 30 70 10 10 Z" stroke="currentColor" strokeWidth="1" />
                 <path d="M5 25 C25 45 45 25 65 45" stroke="currentColor" strokeWidth="0.8" />
               </svg>
@@ -160,25 +182,25 @@ export default function WeddingSketchbook() {
                 className="space-y-4 my-auto relative z-10"
               >
                 <div className="space-y-1">
-                  <span className="font-sans text-[10px] sm:text-xs text-[#9E7B35] uppercase tracking-[0.25em] font-bold">
+                  <span className="font-sans text-[11px] sm:text-xs text-[#7A5E24] uppercase tracking-[0.25em] font-bold">
                     Plate {page.id} of {SKETCH_PAGES.length}
                   </span>
                   <h3 className="font-serif text-2xl sm:text-3xl text-[#2C251E] font-normal leading-tight">
                     {page.title}
                   </h3>
-                  <p className="font-sans text-[11px] text-[#8E8272] tracking-wider uppercase font-medium">
+                  <p className="font-sans text-xs text-[#594E3F] tracking-wider uppercase font-semibold">
                     📍 {page.location}
                   </p>
                 </div>
 
-                <div className="h-px w-16 bg-[#C5A869]/40" />
+                <div className="h-px w-16 bg-[#7A5E24]/40" />
 
-                <p className="font-serif text-sm sm:text-base text-[#61574B] leading-relaxed italic font-light">
+                <p className="font-serif text-sm sm:text-base text-[#594E3F] leading-relaxed italic font-normal">
                   &ldquo;{page.caption}&rdquo;
                 </p>
 
                 <div className="pt-2">
-                  <span className="inline-block px-3 py-1 rounded-full bg-[#C5A869]/15 border border-[#C5A869]/30 text-[#7A5E24] text-[10px] font-sans font-semibold uppercase tracking-widest">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#7A5E24]/15 border border-[#7A5E24]/30 text-[#634A16] text-[11px] font-sans font-bold uppercase tracking-widest">
                     ✨ {page.watercolorNote}
                   </span>
                 </div>
@@ -186,10 +208,10 @@ export default function WeddingSketchbook() {
             </AnimatePresence>
 
             {/* Bottom Left Date Stamp & Artist Seal */}
-            <div className="flex items-center justify-between pt-4 border-t border-[#C5A869]/20 relative z-10 text-[10px] sm:text-xs text-[#8E8272] font-sans">
-              <span className="tracking-widest uppercase font-medium">{page.date}</span>
-              <div className="flex items-center gap-1 text-[#9E7B35] font-serif font-bold">
-                <span className="w-4 h-4 rounded border border-rose-700 bg-rose-50 text-rose-700 flex items-center justify-center text-[8px]">
+            <div className="flex items-center justify-between pt-4 border-t border-[#7A5E24]/20 relative z-10 text-xs text-[#594E3F] font-sans">
+              <span className="tracking-widest uppercase font-semibold">{page.date}</span>
+              <div className="flex items-center gap-1 text-[#7A5E24] font-serif font-bold">
+                <span className="w-4 h-4 rounded border border-rose-700 bg-rose-50 text-rose-700 flex items-center justify-center text-[8px]" aria-label="Wax seal stamp">
                   印
                 </span>
                 <span>J &amp; G</span>
@@ -210,7 +232,7 @@ export default function WeddingSketchbook() {
               >
                 <Image
                   src={page.image}
-                  alt={page.title}
+                  alt={`Watercolor illustration of ${page.title}`}
                   fill
                   unoptimized
                   className="object-cover sepia-[0.2] contrast-[1.05] brightness-[0.98]"
@@ -222,19 +244,20 @@ export default function WeddingSketchbook() {
                   style={{
                     background: "radial-gradient(circle, transparent 60%, #8A6E4B 100%)",
                   }}
+                  aria-hidden="true"
                 />
                 {/* Watercolor Texture Film */}
-                <div className="absolute inset-0 bg-[#FFFDF9]/10 pointer-events-none backdrop-contrast-125" />
+                <div className="absolute inset-0 bg-[#FFFDF9]/10 pointer-events-none backdrop-contrast-125" aria-hidden="true" />
 
                 {/* Right Bottom Date Stamp on Image */}
-                <div className="absolute bottom-3 right-3 bg-white/85 backdrop-blur-sm px-2.5 py-1 rounded border border-[#C5A869]/40 text-[9px] font-sans uppercase tracking-widest text-[#61574B] font-semibold">
+                <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded border border-[#7A5E24]/40 text-[10px] font-sans uppercase tracking-widest text-[#594E3F] font-bold">
                   {page.date}
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Draggable & Floating Magnifying Glass Lens (Kaca Pembesar Emas) */}
+          {/* Floating Magnifying Glass Lens */}
           <div
             className={`absolute z-30 pointer-events-none transition-all duration-150 ease-out ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
             style={{
@@ -242,10 +265,10 @@ export default function WeddingSketchbook() {
               top: `${lensPos.y}px`,
               transform: "translate(-50%, -50%)",
             }}
+            aria-hidden="true"
           >
             {/* Magnifying Glass Lens Body */}
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full border-4 border-[#C5A869] shadow-[0_15px_35px_rgba(0,0,0,0.35)] overflow-hidden bg-white/40 backdrop-blur-[0.5px]">
-              {/* Gold Lens Metal Highlight Ring */}
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full border-4 border-[#7A5E24] shadow-[0_15px_35px_rgba(0,0,0,0.35)] overflow-hidden bg-white/40 backdrop-blur-[0.5px]">
               <div className="absolute inset-0 rounded-full border-2 border-amber-200/70 pointer-events-none z-20" />
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/30 via-transparent to-white/40 pointer-events-none z-20" />
 
@@ -262,9 +285,9 @@ export default function WeddingSketchbook() {
               />
             </div>
 
-            {/* Brass / Wooden Magnifier Handle */}
+            {/* Brass Magnifier Handle */}
             <div
-              className="absolute -bottom-10 -right-10 w-14 h-4 bg-gradient-to-r from-[#9E7B35] via-[#C5A869] to-[#61491B] rounded-full shadow-lg transform rotate-45 pointer-events-none"
+              className="absolute -bottom-10 -right-10 w-14 h-4 bg-gradient-to-r from-[#7A5E24] via-[#9E7B35] to-[#61491B] rounded-full shadow-lg transform rotate-45 pointer-events-none"
               style={{ transformOrigin: "top left" }}
             />
           </div>
@@ -272,15 +295,15 @@ export default function WeddingSketchbook() {
           {/* Left / Right Page Turning Controls */}
           <button
             onClick={prevPage}
-            aria-label="Previous sketch plate"
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/90 border border-[#C5A869]/50 text-[#7A5E24] shadow-lg flex items-center justify-center hover:scale-110 hover:bg-[#9E7B35] hover:text-white transition-all cursor-pointer"
+            aria-label="Previous sketchbook plate"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/95 border border-[#7A5E24]/50 text-[#634A16] shadow-lg flex items-center justify-center hover:scale-110 hover:bg-[#7A5E24] hover:text-white transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
           >
             ❮
           </button>
           <button
             onClick={nextPage}
-            aria-label="Next sketch plate"
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/90 border border-[#C5A869]/50 text-[#7A5E24] shadow-lg flex items-center justify-center hover:scale-110 hover:bg-[#9E7B35] hover:text-white transition-all cursor-pointer"
+            aria-label="Next sketchbook plate"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-white/95 border border-[#7A5E24]/50 text-[#634A16] shadow-lg flex items-center justify-center hover:scale-110 hover:bg-[#7A5E24] hover:text-white transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
           >
             ❯
           </button>
@@ -292,12 +315,13 @@ export default function WeddingSketchbook() {
             <button
               key={p.id}
               onClick={() => setCurrentPage(idx)}
-              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
                 currentPage === idx
-                  ? "w-8 bg-champagne-gold shadow-md shadow-[#9E7B35]/30"
-                  : "w-2 bg-[#C5A869]/40 hover:bg-[#9E7B35]"
+                  ? "w-8 bg-champagne-gold shadow-md shadow-[#7A5E24]/30"
+                  : "w-2.5 bg-[#7A5E24]/40 hover:bg-[#7A5E24]"
               }`}
-              aria-label={`Go to page ${idx + 1}`}
+              aria-label={`Go to sketchbook plate ${idx + 1}: ${p.title}`}
+              aria-current={currentPage === idx ? "true" : "false"}
             />
           ))}
         </div>

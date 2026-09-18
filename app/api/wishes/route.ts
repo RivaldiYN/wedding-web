@@ -4,7 +4,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { sanitizeText } from "@/lib/sanitize";
 import { isAdminAuthenticated } from "@/lib/auth";
 
-// GET Wishes — Public (Approved only) or Admin (All)
+// GET Wishes: Public (Approved only) or Admin (All)
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST Wish — Public with Rate Limiter & Sanitization
+// POST Wish: Public with Rate Limiter & Sanitization
 export async function POST(req: NextRequest) {
   try {
     // Rate Limit: 5 wishes per 5 minutes per IP

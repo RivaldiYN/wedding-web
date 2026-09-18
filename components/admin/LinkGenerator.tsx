@@ -106,26 +106,27 @@ export default function LinkGenerator() {
   return (
     <section className="mb-10">
       <div className="glass-wedding-card rounded-3xl p-6 sm:p-8 shadow-md">
-        <h2 className="font-serif text-[#2C251E] text-xl font-normal mb-5 flex items-center gap-2">
-          <span className="text-[#9E7B35]">🔗</span>
+        <h2 className="font-serif text-[#2C251E] text-xl font-medium mb-5 flex items-center gap-2">
+          <span className="text-[#7A5E24]" aria-hidden="true">🔗</span>
           <span>Personalized Invitation Link Generator</span>
         </h2>
 
         {/* Form */}
         <form onSubmit={handleGenerate} className="flex flex-col sm:flex-row gap-3 mb-6">
+          <label htmlFor="generator-guest-name" className="sr-only">Guest Name</label>
           <input
+            id="generator-guest-name"
             type="text"
             value={inputName}
             onChange={(e) => setInputName(e.target.value)}
             placeholder="Guest name (e.g. John Doe & Family)"
             required
-            className="flex-1 bg-white border border-[#C5A869]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#8E8272]/60 focus:outline-none focus:border-[#9E7B35] shadow-sm"
-            aria-label="Guest Name"
+            className="flex-1 bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] shadow-sm"
           />
           <button
             type="submit"
             disabled={generating || !inputName.trim()}
-            className="btn-wedding-gold px-7 py-3 rounded-full text-xs font-sans font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap shadow-md disabled:opacity-40"
+            className="btn-wedding-gold px-7 py-3 rounded-full text-xs font-sans font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap shadow-md disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-[#7A5E24] focus-visible:ring-offset-2"
             aria-busy={generating}
           >
             {generating ? "Generating..." : "Create Link +"}
@@ -139,8 +140,8 @@ export default function LinkGenerator() {
             animate={{ opacity: 1, height: "auto" }}
             className="mb-5"
           >
-            <p className="font-sans text-[#8E8272] text-xs mb-1">Generated URL Preview:</p>
-            <code className="font-sans text-[#7A5E24] text-xs bg-white/90 px-3 py-1.5 rounded-lg border border-[#C5A869]/30 block shadow-sm">
+            <p className="font-sans text-[#594E3F] text-xs mb-1 font-semibold">Generated URL Preview:</p>
+            <code className="font-sans text-[#634A16] text-xs bg-white/90 px-3 py-1.5 rounded-lg border border-[#7A5E24]/30 block shadow-sm font-semibold">
               {baseUrl}/invite/{nameToSlug(inputName)}
             </code>
           </motion.div>
@@ -149,16 +150,16 @@ export default function LinkGenerator() {
         {/* Table */}
         {links.length > 0 && (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm" aria-label="Generated guest list">
+            <table className="w-full text-sm" aria-label="Generated guest links list">
               <thead>
-                <tr className="border-b border-[#C5A869]/20 text-[#8E8272]">
-                  <th className="text-left font-sans text-xs uppercase tracking-wider pb-3 pr-4 font-semibold">
+                <tr className="border-b border-[#7A5E24]/20 text-[#594E3F]">
+                  <th scope="col" className="text-left font-sans text-xs uppercase tracking-wider pb-3 pr-4 font-bold">
                     Guest Name
                   </th>
-                  <th className="text-left font-sans text-xs uppercase tracking-wider pb-3 pr-4 hidden md:table-cell font-semibold">
+                  <th scope="col" className="text-left font-sans text-xs uppercase tracking-wider pb-3 pr-4 hidden md:table-cell font-bold">
                     Created Date
                   </th>
-                  <th className="text-left font-sans text-xs uppercase tracking-wider pb-3 font-semibold">
+                  <th scope="col" className="text-left font-sans text-xs uppercase tracking-wider pb-3 font-bold">
                     Actions
                   </th>
                 </tr>
@@ -168,36 +169,36 @@ export default function LinkGenerator() {
                   {links.map((link) => (
                     <motion.tr
                       key={link.id}
-                      className="border-b border-[#C5A869]/10 hover:bg-white/60 transition-colors"
+                      className="border-b border-[#7A5E24]/10 hover:bg-white/60 transition-colors"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0 }}
                     >
                       <td className="py-3.5 pr-4">
-                        <p className="font-sans text-[#2C251E] text-sm font-semibold">{link.guestName}</p>
-                        <p className="font-sans text-[#8E8272] text-xs mt-0.5 truncate max-w-[240px]">
+                        <p className="font-sans text-[#2C251E] text-sm font-bold">{link.guestName}</p>
+                        <p className="font-sans text-[#594E3F] text-xs mt-0.5 truncate max-w-[240px]">
                           {link.url}
                         </p>
                       </td>
                       <td className="py-3.5 pr-4 hidden md:table-cell">
-                        <span className="font-sans text-[#61574B] text-xs">{link.createdAt}</span>
+                        <span className="font-sans text-[#594E3F] text-xs font-medium">{link.createdAt}</span>
                       </td>
                       <td className="py-3.5">
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleCopy(link.url, link.id)}
-                            className="btn-wedding-outline px-3 py-1.5 rounded-lg text-xs font-sans flex items-center gap-1 cursor-pointer"
+                            className="btn-wedding-outline px-3 py-1.5 rounded-lg text-xs font-sans font-bold flex items-center gap-1 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
                             aria-label={`Copy link for ${link.guestName}`}
                           >
-                            <span>{copiedId === link.id ? "✅" : "📋"}</span>
+                            <span aria-hidden="true">{copiedId === link.id ? "✅" : "📋"}</span>
                             <span>{copiedId === link.id ? "Copied" : "Copy"}</span>
                           </button>
                           <button
                             onClick={() => handleWhatsApp(link)}
-                            className="px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs font-sans font-semibold flex items-center gap-1 hover:bg-emerald-800 transition-colors cursor-pointer shadow-sm"
+                            className="px-3 py-1.5 rounded-lg bg-emerald-700 text-white text-xs font-sans font-bold flex items-center gap-1 hover:bg-emerald-800 transition-colors cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-[#7A5E24]"
                             aria-label={`Share on WhatsApp to ${link.guestName}`}
                           >
-                            <span>📲</span>
+                            <span aria-hidden="true">📲</span>
                             <span>Share WA</span>
                           </button>
                         </div>
@@ -211,7 +212,7 @@ export default function LinkGenerator() {
         )}
 
         {links.length === 0 && (
-          <p className="font-sans text-[#8E8272] text-sm text-center py-6">
+          <p className="font-sans text-[#594E3F] text-sm text-center py-6 font-medium">
             No guest links generated yet. Enter a name above to create one.
           </p>
         )}

@@ -45,7 +45,10 @@ export default function InvitationExperience({
       <CoverGate guestName={guestName} isOpen={isOpen} onOpen={handleOpen} />
 
       {/* Main Wedding Invitation Content */}
-      <div className={`relative z-10 ${!isOpen ? "opacity-0 pointer-events-none" : "opacity-100 transition-opacity duration-700"}`}>
+      <main
+        id="main-content"
+        className={`relative z-10 ${!isOpen ? "opacity-0 pointer-events-none" : "opacity-100 transition-opacity duration-700"}`}
+      >
         <Hero guestName={guestName} />
         <CoupleProfile />
         <EventDetails />
@@ -57,19 +60,19 @@ export default function InvitationExperience({
         <GiftRegistry />
 
         {/* Footer */}
-        <footer className="relative py-16 px-4 text-center border-t border-[#C5A869]/20 bg-[#FAF7F2]/80 backdrop-blur-md">
+        <footer className="relative py-16 px-4 text-center border-t border-[#7A5E24]/20 bg-[#FAF7F2]/90 backdrop-blur-md">
           <div className="max-w-md mx-auto space-y-3">
-            <div className="h-px w-24 bg-[#C5A869]/40 mx-auto" />
-            <h3 className="font-script text-4xl text-[#9E7B35] font-normal">
+            <div className="h-px w-24 bg-[#7A5E24]/40 mx-auto" />
+            <h3 className="font-script text-4xl text-[#7A5E24] font-normal">
               {COUPLE.groomName.split(" ")[0]} &amp; {COUPLE.brideName.split(" ")[0]}
             </h3>
-            <p className="font-serif text-[#61574B] text-xs tracking-widest uppercase">
+            <p className="font-serif text-[#594E3F] text-xs tracking-widest uppercase font-medium">
               {WEDDING.displayDate}
             </p>
-            <p className="font-sans text-[#8E8272] text-xs italic pt-2 font-light">
+            <p className="font-sans text-[#594E3F] text-xs italic pt-2 font-normal">
               &ldquo;It is our utmost joy and privilege to celebrate our holy union in the presence of those we hold dear.&rdquo;
             </p>
-            <div className="pt-3 text-[#9E7B35]/50 text-xs">✦ ✦ ✦</div>
+            <div className="pt-3 text-[#7A5E24]/70 text-xs" aria-hidden="true">✦ ✦ ✦</div>
           </div>
         </footer>
 
@@ -78,7 +81,7 @@ export default function InvitationExperience({
 
         {/* Floating Audio Player */}
         <AudioPlayer />
-      </div>
+      </main>
     </div>
   );
 }

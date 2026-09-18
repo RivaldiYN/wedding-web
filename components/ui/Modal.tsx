@@ -12,12 +12,14 @@ interface ModalProps {
   children?: React.ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, imageSrc, imageAlt, children }: ModalProps) {
+export default function Modal({ isOpen, onClose, imageSrc, imageAlt, children }: Readonly<ModalProps>) {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      closeBtnRef.current?.focus();
     } else {
       document.body.style.overflow = "";
     }
@@ -46,10 +48,10 @@ export default function Modal({ isOpen, onClose, imageSrc, imageAlt, children }:
           onClick={(e) => e.target === overlayRef.current && onClose()}
           role="dialog"
           aria-modal="true"
-          aria-label={imageAlt || "Modal"}
+          aria-label={imageAlt || "Modal Dialog"}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-charcoal/90 backdrop-blur-md" onClick={onClose} />
+          <div className="absolute inset-0 bg-[#1A1612]/90 backdrop-blur-md" onClick={onClose} aria-hidden="true" />
 
           {/* Content */}
           <motion.div
@@ -61,25 +63,26 @@ export default function Modal({ isOpen, onClose, imageSrc, imageAlt, children }:
           >
             {/* Close button */}
             <button
+              ref={closeBtnRef}
               onClick={onClose}
-              className="absolute -top-10 right-0 text-pearl/70 hover:text-gold transition-colors text-3xl font-light z-10 focus:outline-none focus:ring-2 focus:ring-gold rounded"
-              aria-label="Tutup modal"
+              className="absolute -top-10 right-0 text-white/90 hover:text-white transition-colors text-2xl font-light z-10 focus-visible:ring-2 focus-visible:ring-[#7A5E24] rounded-full w-8 h-8 flex items-center justify-center"
+              aria-label="Close dialog"
             >
-              ×
+              ✕
             </button>
 
             {imageSrc ? (
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-gold/20 shadow-2xl shadow-gold/10">
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-[#7A5E24]/30 shadow-2xl">
                 <Image
                   src={imageSrc}
-                  alt={imageAlt || ""}
+                  alt={imageAlt || "Modal preview"}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 80vw"
                 />
               </div>
             ) : (
-              <div className="bg-charcoal border border-gold/20 rounded-xl p-6 shadow-2xl">
+              <div className="bg-[#FAF7F2] border border-[#7A5E24]/30 rounded-2xl p-6 shadow-2xl text-[#2C251E]">
                 {children}
               </div>
             )}
