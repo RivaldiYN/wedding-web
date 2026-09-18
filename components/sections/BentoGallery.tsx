@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { GALLERY_IMAGES } from "@/lib/dummy-data";
+import { GALLERY_IMAGES } from "@/shared";
 
 export default function BentoGallery() {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
@@ -77,19 +77,19 @@ export default function BentoGallery() {
       <div className="max-w-5xl mx-auto text-center mb-10">
         <motion.p
           className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           Cherished Moments
         </motion.p>
         <motion.h2
           className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light"
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
           Pre-wedding Photo Gallery
         </motion.h2>
@@ -97,8 +97,8 @@ export default function BentoGallery() {
           className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         />
 
         {/* Category Filter Tabs */}
@@ -120,46 +120,53 @@ export default function BentoGallery() {
         </div>
       </div>
 
-      {/* Bento Grid */}
+      {/* Harmonious Photo Grid */}
       <motion.div
         layout
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.15 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[220px] gap-3 sm:gap-4"
+        viewport={{ once: false, amount: 0.1 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4"
       >
         <AnimatePresence>
-          {filteredImages.map((img, idx) => (
-            <motion.button
-              layout
-              key={img.id}
-              className={`${
-                gridClasses[img.size] || "col-span-1 row-span-1"
-              } relative overflow-hidden rounded-3xl border border-[#7A5E24]/30 hover:border-[#7A5E24] group transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] shadow-md text-left`}
-              onClick={() => setSelectedIdx(idx)}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              aria-label={`View photo ${img.alt}, click to enlarge`}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                unoptimized
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 25vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-left">
-                <span className="text-white text-xs font-serif font-medium drop-shadow-sm">{img.alt}</span>
-                <span className="text-[#EBD8B0] text-[10px] uppercase tracking-widest mt-0.5 font-sans font-bold">
-                  Click to Expand 🔍
-                </span>
-              </div>
-            </motion.button>
-          ))}
+          {filteredImages.map((img, idx) => {
+            // Highlight only the first 2 photos when in 'all' view, rest are uniform
+            const isHighlighted = activeCategory === "all" ? idx < 2 : filteredImages.length <= 2;
+
+            return (
+              <motion.button
+                layout
+                key={img.id}
+                className={`${
+                  isHighlighted
+                    ? "col-span-2 aspect-[4/3] sm:aspect-[16/10]"
+                    : "col-span-1 aspect-square sm:aspect-[4/3]"
+                } relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#7A5E24]/30 hover:border-[#7A5E24] group transition-all duration-300 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] shadow-md text-left`}
+                onClick={() => setSelectedIdx(idx)}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                aria-label={`View photo ${img.alt}, click to enlarge`}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  unoptimized
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes={isHighlighted ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 50vw, 25vw"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-left">
+                  <span className="text-white text-xs sm:text-sm font-serif font-medium drop-shadow-sm">{img.alt}</span>
+                  <span className="text-[#EBD8B0] text-[10px] uppercase tracking-widest mt-0.5 font-sans font-bold">
+                    Click to Expand 🔍
+                  </span>
+                </div>
+              </motion.button>
+            );
+          })}
         </AnimatePresence>
       </motion.div>
 

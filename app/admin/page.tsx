@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { COUPLE } from "@/lib/dummy-data";
+import { COUPLE } from "@/shared";
 
 const LinkGenerator = dynamic(() => import("@/components/admin/LinkGenerator"), { ssr: false });
 const RSVPDashboard = dynamic(() => import("@/components/admin/RSVPDashboard"), { ssr: false });

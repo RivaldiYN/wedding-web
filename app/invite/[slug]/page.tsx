@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { slugToName } from "@/lib/utils";
-import { COUPLE, WEDDING } from "@/lib/dummy-data";
+import { COUPLE, WEDDING } from "@/shared";
 import InvitationExperience from "@/components/public/InvitationExperience";
 
 interface Props {
@@ -10,30 +10,35 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const guestName = slugToName(slug);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
   return {
-    title: `The Wedding of ${COUPLE.displayName} | Invitation for ${guestName}`,
-    description: `${guestName}, you are cordially invited to celebrate the wedding of ${COUPLE.groomName} & ${COUPLE.brideName} on ${WEDDING.displayDate}.`,
+    title: `${COUPLE.displayName} - Wedding Invitation for ${guestName}`,
+    description: `Dear ${guestName}, you are cordially invited to our wedding ceremony - ${COUPLE.displayName} Wedding. ${WEDDING.displayDate}.`,
     openGraph: {
-      title: `💍 ${COUPLE.groomName} & ${COUPLE.brideName}: Wedding Invitation for ${guestName}`,
-      description: `We joyfully invite ${guestName} to celebrate our special day. ${WEDDING.displayDate}.`,
+      title: `${COUPLE.displayName} - The Wedding Invitation`,
+      description: `Dear ${guestName}, you are cordially invited to our wedding ceremony - ${COUPLE.displayName} Wedding.`,
       type: "website",
+      siteName: "Wedding of Jacob & Ghina",
       url: `${baseUrl}/invite/${slug}`,
       locale: "en_US",
       images: [
         {
-          url: `${baseUrl}/og-image.jpg`,
+          url: `${baseUrl}/opengraph-image`,
           width: 1200,
           height: 630,
-          alt: `The Wedding of ${COUPLE.displayName}`,
+          alt: `The Wedding of ${COUPLE.displayName} - ${guestName}`,
+          type: "image/png",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `The Wedding of ${COUPLE.displayName}`,
-      description: `Dear ${guestName}: You are cordially invited to celebrate with us!`,
+      title: `${COUPLE.displayName} - Wedding Invitation for ${guestName}`,
+      description: `Dear ${guestName}, you are cordially invited to celebrate our wedding on ${WEDDING.displayDate}.`,
+      images: [`${baseUrl}/opengraph-image`],
     },
   };
 }

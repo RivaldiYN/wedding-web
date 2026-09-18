@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GONDANG_MUSIC_PATH } from "@/lib/dummy-data";
+import { GONDANG_MUSIC_PATH } from "@/shared";
 
 export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);

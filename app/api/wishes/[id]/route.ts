@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { sanitizeId } from "@/lib/sanitize";
 
 export async function PATCH(
   req: NextRequest,
@@ -13,12 +14,18 @@ export async function PATCH(
     }
 
     const { id } = await params;
+    const cleanId = sanitizeId(id);
+
+    if (!cleanId) {
+      return NextResponse.json({ error: "Invalid wish ID." }, { status: 400 });
+    }
+
     const body = await req.json().catch(() => ({}));
 
     const wish = await db.wish.update({
-      where: { id },
+      where: { id: cleanId },
       data: {
-        approved: body.approved ?? true,
+        approved: Boolean(body.approved),
       },
     });
 
@@ -40,8 +47,14 @@ export async function DELETE(
     }
 
     const { id } = await params;
+    const cleanId = sanitizeId(id);
+
+    if (!cleanId) {
+      return NextResponse.json({ error: "Invalid wish ID." }, { status: 400 });
+    }
+
     await db.wish.delete({
-      where: { id },
+      where: { id: cleanId },
     });
 
     return NextResponse.json({ success: true });

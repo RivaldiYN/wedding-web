@@ -24,18 +24,24 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+  ),
   title: "The Wedding of Jacob & Ghina | #withCob",
   description:
-    "We joyfully invite you to celebrate our wedding. Saturday, May 02nd, 2026.",
+    "We joyfully invite you to celebrate our holy matrimony and wedding celebration. Saturday, May 02nd, 2026.",
   openGraph: {
     title: "The Wedding of Jacob & Ghina | #withCob",
     description: "You are cordially invited to celebrate the holy matrimony and wedding celebration of Jacob & Ghina.",
     type: "website",
+    siteName: "The Wedding of Jacob & Ghina",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "The Wedding of Jacob & Ghina | #withCob",
+    description: "You are cordially invited to celebrate the holy matrimony and wedding celebration of Jacob & Ghina.",
   },
 };
 

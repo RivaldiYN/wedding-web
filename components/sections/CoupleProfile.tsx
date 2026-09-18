@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { COUPLE } from "@/lib/dummy-data";
+import { COUPLE } from "@/shared";
 
 export default function CoupleProfile() {
   return (
@@ -25,10 +25,10 @@ export default function CoupleProfile() {
 
       <div className="max-w-4xl mx-auto text-center mb-16 relative z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: -16, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="inline-flex items-center justify-center w-12 h-12 mx-auto rounded-full bg-[#8B1A1A]/10 border border-[#8B1A1A]/30 text-[#8B1E2A] mb-3 text-lg"
           aria-hidden="true"
         >
@@ -37,19 +37,19 @@ export default function CoupleProfile() {
 
         <motion.p
           className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.35em] mb-2 font-bold"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
         >
           The Happy Couple &bull; Anak &amp; Boru Ni Raja
         </motion.p>
         <motion.h2
           className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light tracking-wide"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
           The Bride &amp; Groom
         </motion.h2>
@@ -57,15 +57,15 @@ export default function CoupleProfile() {
           className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         />
         <motion.blockquote
           className="font-sans text-[#594E3F] text-xs sm:text-sm max-w-lg mx-auto mt-6 leading-relaxed italic font-normal"
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           &ldquo;Tumbur ni Pahu tu Ramba ni Poriau, Manumpak ma Debata tubu ma anak dohot boru na marroha.&rdquo;
           <cite className="block text-[#7A5E24] text-xs not-italic font-bold mt-1.5 tracking-wider">
@@ -76,14 +76,14 @@ export default function CoupleProfile() {
 
       {/* Profiles Grid with Stagger & Bidirectional Re-animation */}
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 relative z-10">
-        {/* Groom Card */}
+        {/* Groom Card - Fade Right & Up */}
         <motion.article
           aria-label={`Profile of the groom ${COUPLE.groomName}`}
           className="glass-wedding-card rounded-3xl p-8 sm:p-10 text-center relative space-y-4 shadow-xl"
-          initial={{ opacity: 0, y: 35, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, x: -20, y: 16 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ y: -6, transition: { duration: 0.25 } }}
         >
           {/* Arch Portrait with Gold Double Ring */}
@@ -117,14 +117,14 @@ export default function CoupleProfile() {
           </div>
         </motion.article>
 
-        {/* Bride Card */}
+        {/* Bride Card - Fade Left & Up */}
         <motion.article
           aria-label={`Profile of the bride ${COUPLE.brideName}`}
           className="glass-wedding-card rounded-3xl p-8 sm:p-10 text-center relative space-y-4 shadow-xl"
-          initial={{ opacity: 0, y: 35, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          initial={{ opacity: 0, x: 20, y: 16 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ y: -6, transition: { duration: 0.25 } }}
         >
           {/* Arch Portrait with Gold Double Ring */}

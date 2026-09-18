@@ -103,35 +103,33 @@ function FloatingUlosRibbon({ isMobile }: { isMobile: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const ulosTexture = useMemo(() => createUlosTexture(), []);
 
-  // Parametric Plane for Cloth Ripple
-  const geometry = useMemo(() => new THREE.PlaneGeometry(isMobile ? 1.8 : 2.8, isMobile ? 8 : 11, 32, 64), [isMobile]);
+  // Lightweight Parametric Plane for Smooth Cloth Wave (Optimized 16x32 grid)
+  const geometry = useMemo(() => new THREE.PlaneGeometry(isMobile ? 1.8 : 2.8, isMobile ? 8 : 11, 16, 32), [isMobile]);
 
   useFrame((state) => {
     if (!meshRef.current) return;
-    const t = performance.now() * 0.0012;
+    const t = performance.now() * 0.001;
     const pos = geometry.attributes.position;
     const count = pos.count;
-    const mouseX = state.pointer.x * 0.5;
+    const mouseX = state.pointer.x * 0.3;
 
     for (let i = 0; i < count; i++) {
       const u = pos.getX(i);
       const v = pos.getY(i);
 
-      // Natural Silken Cloth Flutter & Drape Equation
+      // Silken Cloth Flutter Wave Equation
       const zWave =
-        Math.sin(v * 0.85 + t * 2.2) * 0.45 +
-        Math.cos(u * 1.5 + t * 1.6) * 0.25 +
-        Math.sin((u + v) * 0.5 + t * 3.0) * 0.12;
+        Math.sin(v * 0.7 + t * 1.8) * 0.35 +
+        Math.cos(u * 1.2 + t * 1.3) * 0.2;
 
       pos.setZ(i, zWave);
     }
     pos.needsUpdate = true;
-    geometry.computeVertexNormals();
 
     // Gentle Floating Rotation & Position Sway
-    meshRef.current.rotation.z = Math.sin(t * 0.3) * 0.08 - 0.18;
-    meshRef.current.rotation.y = Math.cos(t * 0.4) * 0.12 + 0.35 + mouseX * 0.15;
-    meshRef.current.position.y = Math.sin(t * 0.5) * 0.25 - 0.2;
+    meshRef.current.rotation.z = Math.sin(t * 0.25) * 0.06 - 0.15;
+    meshRef.current.rotation.y = Math.cos(t * 0.3) * 0.08 + 0.35 + mouseX * 0.1;
+    meshRef.current.position.y = Math.sin(t * 0.4) * 0.2 - 0.15;
   });
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { WEDDING, COUPLE } from "@/lib/dummy-data";
+import { WEDDING, COUPLE } from "@/shared";
 
 export default function EventDetails() {
   const getGoogleCalendarUrl = (event: (typeof WEDDING.events)[0]) => {
@@ -28,19 +28,19 @@ export default function EventDetails() {
       <div className="max-w-5xl mx-auto text-center mb-16 relative z-10">
         <motion.p
           className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.35em] mb-2 font-bold"
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           Save the Date
         </motion.p>
         <motion.h2
           className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light tracking-wide"
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
           Wedding Events Schedule
         </motion.h2>
@@ -48,22 +48,22 @@ export default function EventDetails() {
           className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
 
       {/* Event Cards Grid */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-7 mb-16 relative z-10">
+      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 relative z-10">
         {WEDDING.events.map((event, idx) => (
           <motion.article
             key={event.id}
             aria-label={`${event.title} Event Details`}
             className="glass-wedding-card rounded-3xl p-8 flex flex-col justify-between relative group shadow-xl"
-            initial={{ opacity: 0, y: 35, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.65, delay: idx * 0.12 }}
+            initial={{ opacity: 0, x: idx === 0 ? -18 : 18, y: 16 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.65, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -6, transition: { duration: 0.25 } }}
           >
             {/* Top Gold Foil Accent Line */}
@@ -76,7 +76,7 @@ export default function EventDetails() {
                   {event.icon}
                 </span>
                 <span className="font-sans text-[11px] text-[#634A16] uppercase tracking-widest bg-[#7A5E24]/15 border border-[#7A5E24]/35 px-3.5 py-1 rounded-full font-bold">
-                  {event.id === "traditional" ? "Heritage" : "Celebration"}
+                  {event.id === "matrimony" ? "Church Ceremony" : "Traditional Feast & Reception"}
                 </span>
               </div>
 
@@ -133,10 +133,10 @@ export default function EventDetails() {
       {/* Embedded Map with Bidirectional Scroll Animation */}
       <motion.div
         className="max-w-5xl mx-auto rounded-3xl overflow-hidden glass-wedding-card border border-[#7A5E24]/30 shadow-2xl relative z-10"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 0.7 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="bg-[#FAF7F2] px-6 py-3.5 border-b border-[#7A5E24]/20 flex items-center justify-between">
           <div className="flex items-center gap-2">

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import CountdownTimer from "@/components/ui/CountdownTimer";
-import { COUPLE, WEDDING } from "@/lib/dummy-data";
+import { COUPLE, WEDDING } from "@/shared";
 
 interface HeroProps {
   guestName: string;
@@ -26,12 +26,12 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
       </div>
 
       <div className="relative z-10 flex flex-col items-center max-w-3xl mx-auto gap-6">
-        {/* Batak Greeting Badge */}
+        {/* Batak Greeting Badge - Fade Down */}
         <motion.div
-          initial={{ opacity: 0, y: -15 }}
+          initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#8B1A1A]/10 border border-[#8B1A1A]/30 text-[#8B1E2A] text-xs font-sans uppercase tracking-[0.25em] font-bold"
         >
           <span aria-hidden="true">✦</span>
@@ -39,12 +39,12 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
           <span aria-hidden="true">✦</span>
         </motion.div>
 
-        {/* Pre-title */}
+        {/* Pre-title - Fade Down */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.05 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-3"
         >
           <div className="h-px w-10 bg-[#7A5E24]/40" />
@@ -57,10 +57,10 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
         {/* Personalized Guest Badge */}
         {guestName && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="px-6 py-2 rounded-full glass-wedding-card border border-[#7A5E24]/30 shadow-sm"
           >
             <p className="font-sans text-[#594E3F] text-xs tracking-wider font-normal">
@@ -69,12 +69,12 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
           </motion.div>
         )}
 
-        {/* Couple Names (Calligraphic Script) */}
+        {/* Couple Names - Fade Up */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-1"
         >
           <h1 className="font-script text-5xl sm:text-7xl md:text-8xl text-[#7A5E24] font-normal leading-tight drop-shadow-sm py-2">
@@ -85,12 +85,12 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
           </p>
         </motion.div>
 
-        {/* Wedding Date */}
+        {/* Wedding Date - Fade / Zoom */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center gap-2"
         >
           <p className="font-serif text-[#2C251E] text-base sm:text-lg tracking-[0.15em] font-medium">
@@ -99,12 +99,12 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#7A5E24]/60 to-transparent mt-1" />
         </motion.div>
 
-        {/* Countdown */}
+        {/* Countdown - Fade Up */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center gap-3 mt-3"
         >
           <p className="font-sans text-[#594E3F] text-xs uppercase tracking-[0.25em] font-bold">
@@ -117,8 +117,8 @@ export default function Hero({ guestName }: Readonly<HeroProps>) {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center gap-1 mt-6"
         >
           <a

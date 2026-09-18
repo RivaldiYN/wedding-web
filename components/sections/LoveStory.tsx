@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { LOVE_STORY } from "@/lib/dummy-data";
+import { LOVE_STORY } from "@/shared";
 
 export default function LoveStory() {
   return (
@@ -18,19 +18,19 @@ export default function LoveStory() {
       <div className="max-w-4xl mx-auto text-center mb-16">
         <motion.p
           className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           Our Journey
         </motion.p>
         <motion.h2
           className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light"
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
           How Our Story Unfolded
         </motion.h2>
@@ -38,8 +38,8 @@ export default function LoveStory() {
           className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
 
@@ -56,10 +56,10 @@ export default function LoveStory() {
                 className={`relative flex items-start gap-6 md:gap-0 ${
                   isEven ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
-                initial={{ opacity: 0, x: isEven ? -25 : 25, scale: 0.96 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.25 }}
-                transition={{ duration: 0.6, delay: idx * 0.05 }}
+                initial={{ opacity: 0, x: isEven ? -20 : 20, y: 12 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
               >
                 {/* Content Card */}
                 <div className={`flex-1 pl-14 md:pl-0 ${isEven ? "md:pr-10" : "md:pl-10"}`}>

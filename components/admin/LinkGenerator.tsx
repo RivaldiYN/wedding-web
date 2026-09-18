@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { nameToSlug, copyToClipboard } from "@/lib/utils";
-import { COUPLE } from "@/lib/dummy-data";
+import { COUPLE } from "@/shared";
 
 interface GeneratedLink {
   id: string;

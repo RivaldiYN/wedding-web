@@ -53,23 +53,19 @@ export default function RSVPDashboard() {
   const notAttending = entries.filter((e) => !e.attending);
   const totalGuests = attending.reduce((sum, e) => sum + (Number(e.guestCount) || 1), 0);
 
-  // Breakdown Headcounts per Event Session
+  // Breakdown Headcounts per Event Session (Batak 2-event flow)
   const sessionHeadcounts = {
     matrimony: attending
       .filter((e) => e.session === "matrimony" || e.session === "all" || e.session === "both")
       .reduce((sum, e) => sum + (Number(e.guestCount) || 1), 0),
-    reception: attending
-      .filter((e) => e.session === "reception" || e.session === "all" || e.session === "both")
-      .reduce((sum, e) => sum + (Number(e.guestCount) || 1), 0),
-    traditional: attending
-      .filter((e) => e.session === "traditional" || e.session === "all" || e.session === "both")
+    adat_reception: attending
+      .filter((e) => e.session === "adat_reception" || e.session === "reception" || e.session === "traditional" || e.session === "all" || e.session === "both")
       .reduce((sum, e) => sum + (Number(e.guestCount) || 1), 0),
   };
 
   const sessionBarData = [
     { name: "Holy Matrimony", count: sessionHeadcounts.matrimony },
-    { name: "Reception", count: sessionHeadcounts.reception },
-    { name: "Mangulosi Adat", count: sessionHeadcounts.traditional },
+    { name: "Traditional Feast", count: sessionHeadcounts.adat_reception },
   ];
 
   const pieData = [
@@ -78,11 +74,12 @@ export default function RSVPDashboard() {
   ];
 
   const sessionLabels: Record<string, string> = {
-    reception: "🥂 Reception",
-    matrimony: "⛪ Holy Matrimony",
-    traditional: "🎭 Heritage Blessing (Mangulosi)",
-    all: "✨ All Sessions",
-    both: "✨ All Sessions",
+    matrimony: "⛪ Holy Matrimony (08:00 - 11:00 AM)",
+    adat_reception: "🏛️ Traditional Feast & Reception (12:00 - 05:00 PM)",
+    reception: "🏛️ Traditional Feast & Reception (12:00 - 05:00 PM)",
+    traditional: "🏛️ Traditional Feast & Reception (12:00 - 05:00 PM)",
+    all: "✨ Both Sessions",
+    both: "✨ Both Sessions",
   };
 
   const filteredEntries = entries.filter((entry) => {
@@ -105,26 +102,24 @@ export default function RSVPDashboard() {
               Live RSVP Attendance Count
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-normal">
-              Total Hadir: {totalGuests} Orang
+              Total Attending: {totalGuests} Guests
             </h2>
             <p className="font-sans text-white/90 text-xs sm:text-sm font-medium">
-              Dari total {attending.length} undangan keluarga yang telah konfirmasi hadir ({entries.length} respon masuk)
+              From {attending.length} confirmed invitations ({entries.length} total responses received)
             </p>
           </div>
 
           {/* Quick Headcount Badges per Session */}
-          <div className="grid grid-cols-3 gap-2.5 sm:gap-3 w-full md:w-auto">
-            <div className="bg-black/25 backdrop-blur-sm rounded-2xl p-3 text-center border border-white/20">
+          <div className="grid grid-cols-2 gap-3 w-full md:w-auto">
+            <div className="bg-black/25 backdrop-blur-sm rounded-2xl p-3 sm:p-4 text-center border border-white/20 min-w-[130px]">
               <span className="block text-xl sm:text-2xl font-serif font-bold">{sessionHeadcounts.matrimony}</span>
-              <span className="block text-[10px] text-white/80 font-sans uppercase tracking-wider font-semibold">Pemberkatan</span>
+              <span className="block text-[10px] sm:text-[11px] text-white/90 font-sans uppercase tracking-wider font-semibold">Holy Matrimony</span>
+              <span className="block text-[9px] text-white/70 font-sans">08:00 - 11:00 AM</span>
             </div>
-            <div className="bg-black/25 backdrop-blur-sm rounded-2xl p-3 text-center border border-white/20">
-              <span className="block text-xl sm:text-2xl font-serif font-bold">{sessionHeadcounts.reception}</span>
-              <span className="block text-[10px] text-white/80 font-sans uppercase tracking-wider font-semibold">Resepsi</span>
-            </div>
-            <div className="bg-black/25 backdrop-blur-sm rounded-2xl p-3 text-center border border-white/20">
-              <span className="block text-xl sm:text-2xl font-serif font-bold">{sessionHeadcounts.traditional}</span>
-              <span className="block text-[10px] text-white/80 font-sans uppercase tracking-wider font-semibold">Mangulosi</span>
+            <div className="bg-black/25 backdrop-blur-sm rounded-2xl p-3 sm:p-4 text-center border border-white/20 min-w-[130px]">
+              <span className="block text-xl sm:text-2xl font-serif font-bold">{sessionHeadcounts.adat_reception}</span>
+              <span className="block text-[10px] sm:text-[11px] text-white/90 font-sans uppercase tracking-wider font-semibold">Traditional Feast</span>
+              <span className="block text-[9px] text-white/70 font-sans">12:00 - 05:00 PM</span>
             </div>
           </div>
         </div>
@@ -139,10 +134,10 @@ export default function RSVPDashboard() {
         {/* Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { label: "Total Respon", value: `${entries.length} Undangan`, color: "text-[#2C251E]" },
-            { label: "Undangan Hadir", value: `${attending.length} Keluarga`, color: "text-[#634A16]" },
-            { label: "Undangan Berhalangan", value: `${notAttending.length} Respon`, color: "text-[#8B1E2A]" },
-            { label: "Total Orang (Pax)", value: `${totalGuests} Orang`, color: "text-[#7A5E24]" },
+            { label: "Total Responses", value: `${entries.length} Responses`, color: "text-[#2C251E]" },
+            { label: "Attending", value: `${attending.length} Families`, color: "text-[#634A16]" },
+            { label: "Declined", value: `${notAttending.length} Responses`, color: "text-[#8B1E2A]" },
+            { label: "Total Headcount (Pax)", value: `${totalGuests} Guests`, color: "text-[#7A5E24]" },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -158,10 +153,10 @@ export default function RSVPDashboard() {
 
         {/* Charts Row (Pie Chart + Bar Chart) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Pie Chart: Status Kehadiran */}
+          {/* Pie Chart: Attendance Status */}
           <div className="bg-white/80 border border-[#7A5E24]/20 rounded-2xl p-5 shadow-sm">
             <h3 className="font-serif text-[#2C251E] text-base font-normal mb-3 text-center">
-              Rasio Konfirmasi Kehadiran
+              Attendance Confirmation Ratio
             </h3>
             <div className="h-48" aria-label="Attendance statistics pie chart">
               <ResponsiveContainer width="100%" height="100%">
@@ -200,10 +195,10 @@ export default function RSVPDashboard() {
             </div>
           </div>
 
-          {/* Bar Chart: Jumlah Orang per Sesi */}
+          {/* Bar Chart: Headcount per Session */}
           <div className="bg-white/80 border border-[#7A5E24]/20 rounded-2xl p-5 shadow-sm">
             <h3 className="font-serif text-[#2C251E] text-base font-normal mb-3 text-center">
-              Perkiraan Orang Hadir per Sesi
+              Estimated Headcount per Session
             </h3>
             <div className="h-48" aria-label="Headcount per session bar chart">
               <ResponsiveContainer width="100%" height="100%">
@@ -221,7 +216,7 @@ export default function RSVPDashboard() {
                       color: "#2C251E",
                     }}
                   />
-                  <Bar dataKey="count" name="Jumlah Orang" fill="#7A5E24" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="count" name="Guests (Pax)" fill="#7A5E24" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -239,7 +234,7 @@ export default function RSVPDashboard() {
                   : "bg-white/80 text-[#594E3F] hover:bg-white"
               }`}
             >
-              Semua ({entries.length})
+              All ({entries.length})
             </button>
             <button
               onClick={() => setFilterStatus("attending")}
@@ -249,7 +244,7 @@ export default function RSVPDashboard() {
                   : "bg-white/80 text-[#594E3F] hover:bg-white"
               }`}
             >
-              Hadir ({attending.length})
+              Attending ({attending.length})
             </button>
             <button
               onClick={() => setFilterStatus("declined")}
@@ -259,18 +254,18 @@ export default function RSVPDashboard() {
                   : "bg-white/80 text-[#594E3F] hover:bg-white"
               }`}
             >
-              Berhalangan ({notAttending.length})
+              Declined ({notAttending.length})
             </button>
           </div>
 
           <div className="w-full sm:w-64">
-            <label htmlFor="rsvp-search" className="sr-only">Cari Nama Tamu</label>
+            <label htmlFor="rsvp-search" className="sr-only">Search Guest Name</label>
             <input
               id="rsvp-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari nama tamu..."
+              placeholder="Search guest name..."
               className="w-full bg-white border border-[#7A5E24]/35 rounded-xl px-3.5 py-1.5 font-sans text-xs text-[#2C251E] placeholder-[#594E3F]/70 focus-visible:ring-2 focus-visible:ring-[#7A5E24] shadow-sm"
             />
           </div>
@@ -279,18 +274,18 @@ export default function RSVPDashboard() {
         {/* RSVP Table */}
         {loading ? (
           <p className="text-[#594E3F] font-sans text-sm text-center py-4 font-medium" role="status">
-            Memuat data RSVP...
+            Loading RSVP responses...
           </p>
         ) : filteredEntries.length === 0 ? (
           <p className="text-[#594E3F] font-sans text-sm text-center py-6 font-medium">
-            Tidak ada data RSVP yang sesuai filter.
+            No RSVP records matching filter.
           </p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm" aria-label="Daftar konfirmasi RSVP tamu">
+            <table className="w-full text-sm" aria-label="Guest RSVP confirmation table">
               <thead>
                 <tr className="border-b border-[#7A5E24]/20 text-[#594E3F]">
-                  {["Nama Tamu", "Status", "Sesi Acara", "Jumlah Orang (Pax)", "Waktu Kirim"].map((h) => (
+                  {["Guest Name", "Status", "Event Session", "Guests (Pax)", "Submitted Date"].map((h) => (
                     <th
                       key={h}
                       scope="col"
@@ -326,7 +321,7 @@ export default function RSVPDashboard() {
                             : "text-[#8B1E2A] border-[#8B1E2A]/30 bg-[#8B1E2A]/10"
                         }`}
                       >
-                        {entry.attending ? "✅ Hadir" : "❌ Berhalangan"}
+                        {entry.attending ? "✅ Attending" : "❌ Declined"}
                       </span>
                     </td>
                     <td className="py-3.5 pr-4 font-sans text-[#594E3F] text-xs font-medium">
@@ -335,7 +330,7 @@ export default function RSVPDashboard() {
                     <td className="py-3.5 pr-4 font-sans text-[#2C251E] text-xs font-bold">
                       {entry.attending ? (
                         <span className="px-2 py-0.5 rounded-md bg-[#7A5E24]/15 text-[#634A16] border border-[#7A5E24]/30">
-                          {entry.guestCount} Orang
+                          {entry.guestCount} Pax
                         </span>
                       ) : (
                         <span className="text-[#594E3F]/60">-</span>
@@ -343,7 +338,7 @@ export default function RSVPDashboard() {
                     </td>
                     <td className="py-3.5 font-sans text-[#594E3F] text-xs font-medium">
                       {entry.createdAt
-                        ? new Date(entry.createdAt).toLocaleDateString("id-ID", {
+                        ? new Date(entry.createdAt).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
                             year: "numeric",

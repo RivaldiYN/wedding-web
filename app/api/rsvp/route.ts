@@ -45,8 +45,18 @@ export async function POST(req: NextRequest) {
     const slug = sanitizeSlug(body.slug || "honored-guest", 60);
     const attending = Boolean(body.attending);
     const rawSession = sanitizeText(body.session, 40);
-    const validSessions = ["holy_matrimony", "reception", "heritage_blessing", "both", "all", "resepsi", "pemberkatan"];
-    const session = validSessions.includes(rawSession.toLowerCase()) ? rawSession : "both";
+    const validSessions = [
+      "matrimony",
+      "adat_reception",
+      "holy_matrimony",
+      "reception",
+      "heritage_blessing",
+      "both",
+      "all",
+      "resepsi",
+      "pemberkatan",
+    ];
+    const session = validSessions.includes(rawSession.toLowerCase()) ? rawSession : "all";
     const guestCount = sanitizeNumber(body.guestCount, 1, 20, 1);
     const message = sanitizeText(body.message, 800);
 

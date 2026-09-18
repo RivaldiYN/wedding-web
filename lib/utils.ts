@@ -1,23 +1,25 @@
+import { sanitizeSlug, sanitizeText } from "./sanitize";
+
 /**
  * Converts a guest name to a URL-safe slug.
  * e.g. "Budi Saputra" → "budi-saputra"
  */
 export function nameToSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
+  const safeName = sanitizeText(name, 100);
+  return sanitizeSlug(safeName, 60);
 }
 
 /**
- * Converts a slug back to a display name.
+ * Converts a slug back to a display name safely.
  * e.g. "budi-saputra" → "Budi Saputra"
  */
 export function slugToName(slug: string): string {
-  return slug
+  const safeSlug = sanitizeSlug(slug, 60);
+  if (!safeSlug) return "Honored Guest";
+
+  return safeSlug
     .split("-")
+    .filter(Boolean)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }

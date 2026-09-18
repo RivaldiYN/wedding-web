@@ -88,19 +88,19 @@ export default function Wishes() {
         <div className="text-center mb-12">
           <motion.p
             className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             Prayers &amp; Wishes
           </motion.p>
           <motion.h2
             className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             Guestbook &amp; Blessings
           </motion.h2>
@@ -108,8 +108,8 @@ export default function Wishes() {
             className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
 
@@ -119,8 +119,8 @@ export default function Wishes() {
           className="max-w-xl mx-auto mb-16 glass-wedding-card rounded-3xl p-6 sm:p-8 space-y-4 shadow-lg"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <div>
             <label htmlFor="wish-name" className="block text-xs font-sans text-[#2C251E] uppercase tracking-wider font-bold mb-2">
@@ -194,10 +194,10 @@ export default function Wishes() {
           </button>
         </div>
 
-        {/* Wishes Masonry Feed */}
+        {/* Wishes Balanced Grid Feed */}
         <motion.div
           layout
-          className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           <AnimatePresence>
             {displayedWishes.map((wish, idx) => {
@@ -207,19 +207,19 @@ export default function Wishes() {
                   layout
                   key={wish.id || idx}
                   aria-label={`Wish from ${wish.name}`}
-                  className="break-inside-avoid glass-wedding-card rounded-3xl p-5 space-y-3 transition-all shadow-sm"
+                  className="flex flex-col justify-between glass-wedding-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all shadow-sm border border-[#7A5E24]/25 hover:border-[#7A5E24]/50 h-full min-h-[140px]"
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.35, delay: idx * 0.04 }}
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-[#7A5E24]/20 border border-[#7A5E24]/40 text-[#634A16] font-serif font-bold text-xs flex items-center justify-center" aria-hidden="true">
+                      <div className="w-9 h-9 rounded-full bg-[#7A5E24]/15 border border-[#7A5E24]/35 text-[#634A16] font-serif font-bold text-xs flex items-center justify-center flex-shrink-0" aria-hidden="true">
                         {wish.name.charAt(0).toUpperCase()}
                       </div>
-                      <div>
-                        <h4 className="font-serif text-[#2C251E] font-medium text-sm leading-tight">
+                      <div className="min-w-0">
+                        <h4 className="font-serif text-[#2C251E] font-medium text-sm leading-snug truncate">
                           {wish.name}
                         </h4>
                         <time className="text-[11px] text-[#594E3F] font-sans block font-normal">
@@ -237,8 +237,8 @@ export default function Wishes() {
 
                     <button
                       onClick={() => toggleLike(wish.id)}
-                      className={`text-sm p-1.5 rounded-full transition-transform active:scale-125 cursor-pointer focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
-                        isLiked ? "text-rose-600" : "text-[#594E3F]/60 hover:text-rose-600"
+                      className={`text-sm p-1.5 rounded-full transition-transform active:scale-125 cursor-pointer flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[#7A5E24] ${
+                        isLiked ? "text-rose-600" : "text-[#594E3F]/50 hover:text-rose-600"
                       }`}
                       aria-label={isLiked ? `Unlike message from ${wish.name}` : `Like message from ${wish.name}`}
                       aria-pressed={isLiked}
@@ -247,9 +247,11 @@ export default function Wishes() {
                     </button>
                   </div>
 
-                  <p className="font-sans text-[#594E3F] text-xs sm:text-sm leading-relaxed font-normal italic">
-                    &ldquo;{wish.message}&rdquo;
-                  </p>
+                  <div className="flex-1 flex items-start">
+                    <p className="font-sans text-[#594E3F] text-xs sm:text-sm leading-relaxed font-normal italic break-words w-full">
+                      &ldquo;{wish.message}&rdquo;
+                    </p>
+                  </div>
                 </motion.article>
               );
             })}

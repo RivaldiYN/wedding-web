@@ -13,7 +13,7 @@ import GiftRegistry from "@/components/sections/GiftRegistry";
 import AudioPlayer from "@/components/ui/AudioPlayer";
 import FloatingNav from "@/components/ui/FloatingNav";
 import ThreeBackground from "@/components/three/ThreeBackground";
-import { COUPLE, WEDDING } from "@/lib/dummy-data";
+import { COUPLE, WEDDING } from "@/shared";
 
 interface InvitationExperienceProps {
   guestName: string;
@@ -36,17 +36,17 @@ export default function InvitationExperience({
   };
 
   return (
-    <div className="relative min-h-screen bg-[#FBF8F3] text-[#2C251E] overflow-x-hidden bg-wedding-paper">
-      {/* 3D Romantic Falling Rose Petals & Gold Dust */}
+    <div className={`relative min-h-screen bg-[#FBF8F3] text-[#2C251E] bg-wedding-paper ${!isOpen ? "h-screen max-h-screen overflow-hidden" : "overflow-x-hidden"}`}>
+      {/* 3D Romantic Falling Rose Petals & Gold Dust & Ulos Ribbon */}
       <ThreeBackground />
 
-      {/* Royal Cover Gate with Calligraphy & Botanical Sketches */}
+      {/* Royal Cover Gate with Calligraphy & Batak Gorga Accents */}
       <CoverGate guestName={guestName} isOpen={isOpen} onOpen={handleOpen} />
 
       {/* Main Wedding Invitation Content */}
       <main
         id="main-content"
-        className={`relative z-10 ${!isOpen ? "opacity-0 pointer-events-none" : "opacity-100 transition-opacity duration-700"}`}
+        className={`relative z-10 ${!isOpen ? "hidden" : "opacity-100 transition-opacity duration-700"}`}
       >
         <Hero guestName={guestName} />
         <CoupleProfile />

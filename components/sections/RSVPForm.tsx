@@ -13,7 +13,7 @@ type FormState = "idle" | "submitting" | "success" | "error";
 
 export default function RSVPForm({ guestName, slug }: Readonly<RSVPFormProps>) {
   const [attending, setAttending] = useState<"yes" | "no" | "">("yes");
-  const [session, setSession] = useState("reception");
+  const [session, setSession] = useState("all");
   const [guestCount, setGuestCount] = useState(2);
   const [message, setMessage] = useState("");
   const [name, setName] = useState(guestName || "");
@@ -77,19 +77,19 @@ export default function RSVPForm({ guestName, slug }: Readonly<RSVPFormProps>) {
         <div className="text-center mb-12">
           <motion.p
             className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             Reservation
           </motion.p>
           <motion.h2
             className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             RSVP Confirmation
           </motion.h2>
@@ -97,18 +97,18 @@ export default function RSVPForm({ guestName, slug }: Readonly<RSVPFormProps>) {
             className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
 
         {/* Form Card */}
         <motion.div
           className="glass-wedding-card rounded-3xl p-6 sm:p-9 shadow-xl"
-          initial={{ opacity: 0, y: 30, scale: 0.96 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {formState === "success" ? (
             <div className="text-center py-6 space-y-4" role="status" aria-live="polite">
@@ -206,10 +206,9 @@ export default function RSVPForm({ guestName, slug }: Readonly<RSVPFormProps>) {
                         onChange={(e) => setSession(e.target.value)}
                         className="w-full bg-white border border-[#7A5E24]/40 rounded-xl px-4 py-3 font-sans text-[#2C251E] text-sm focus-visible:ring-2 focus-visible:ring-[#7A5E24] transition-colors cursor-pointer shadow-sm"
                       >
-                        <option value="reception">🥂 Wedding Reception (12:00 PM - 03:00 PM)</option>
-                        <option value="matrimony">⛪ Holy Matrimony (09:00 AM - 11:00 AM)</option>
-                        <option value="traditional">🎭 Heritage Blessing (03:30 PM - 06:00 PM)</option>
-                        <option value="all">✨ All Sessions</option>
+                        <option value="all">✨ Both Sessions (Holy Matrimony &amp; Traditional Feast)</option>
+                        <option value="matrimony">⛪ Holy Matrimony Only (08:00 AM - 11:00 AM)</option>
+                        <option value="adat_reception">🏛️ Traditional Feast &amp; Reception Only (12:00 PM - 05:00 PM)</option>
                       </select>
                     </div>
 

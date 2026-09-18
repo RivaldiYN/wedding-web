@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { copyToClipboard } from "@/lib/utils";
-import { GIFT_REGISTRY, COUPLE } from "@/lib/dummy-data";
+import { GIFT_REGISTRY, COUPLE } from "@/shared";
 
 export default function GiftRegistry() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -53,19 +53,19 @@ export default function GiftRegistry() {
         <div className="text-center mb-12">
           <motion.p
             className="font-sans text-[#7A5E24] text-xs uppercase tracking-[0.3em] mb-2 font-bold"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             Wedding Gift &amp; Blessings
           </motion.p>
           <motion.h2
             className="font-serif text-[#2C251E] text-3xl sm:text-4xl md:text-5xl font-light"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             Digital Wedding Gift
           </motion.h2>
@@ -73,15 +73,15 @@ export default function GiftRegistry() {
             className="h-px w-20 bg-[#7A5E24]/40 mx-auto mt-4"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           />
           <motion.p
             className="font-sans text-[#594E3F] text-xs sm:text-sm mt-5 max-w-md mx-auto leading-relaxed font-normal"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
           >
             Your presence and heartfelt prayers are the greatest gift of all. Should you wish to honor us with a wedding gift, you may do so via:
           </motion.p>
@@ -94,10 +94,10 @@ export default function GiftRegistry() {
               key={item.id}
               aria-label={`Bank account for ${item.bank}`}
               className="glass-wedding-card rounded-3xl p-6 relative overflow-hidden space-y-4 shadow-md"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              initial={{ opacity: 0, x: idx === 0 ? -16 : 16, y: 16 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ delay: idx * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="flex items-center justify-between">
                 <span className="font-sans text-xs font-bold uppercase tracking-wider text-[#634A16] bg-[#7A5E24]/15 px-3 py-1 rounded-full border border-[#7A5E24]/30">
@@ -146,10 +146,10 @@ export default function GiftRegistry() {
         {/* QRIS Card */}
         <motion.div
           className="glass-wedding-card rounded-3xl p-7 text-center space-y-4 max-w-sm mx-auto shadow-md"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ delay: 0.15, duration: 0.5 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#7A5E24]/15 border border-[#7A5E24]/30">
             <span className="text-xs" aria-hidden="true">📱</span>

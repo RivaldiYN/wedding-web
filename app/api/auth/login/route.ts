@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { sanitizeText } from "@/lib/sanitize";
+import { createAdminSessionToken } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,11 +36,12 @@ export async function POST(req: NextRequest) {
     const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 
     if (email === adminEmail && password === adminPassword) {
+      const token = createAdminSessionToken();
       const cookieStore = await cookies();
-      cookieStore.set("admin_session", "authenticated_session_token", {
+      cookieStore.set("admin_session", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "strict",
         path: "/",
         maxAge: 60 * 60 * 24 * 7, // 7 days
       });

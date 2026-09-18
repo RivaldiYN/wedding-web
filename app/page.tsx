@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { COUPLE, WEDDING } from "@/lib/dummy-data";
+import { COUPLE, WEDDING } from "@/shared";
 import InvitationExperience from "@/components/public/InvitationExperience";
 
 interface Props {
